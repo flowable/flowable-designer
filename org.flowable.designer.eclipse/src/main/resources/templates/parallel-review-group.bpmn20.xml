@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<definitions id="review-definitions"
+             typeLanguage="http://www.w3.org/2001/XMLSchema"
+             expressionLanguage="http://www.w3.org/1999/XPath"
+             targetNamespace="http://activiti.org/bpmn20" 
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:activiti="http://activiti.org/bpmn">
+
+    <process id="activitiParallelGroupReview" name="Parallel Group Review And Approve Activiti Process">
+
+        <extensionElements>
+            <activiti:executionListener event="start" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+        		<activiti:field name="script">
+                     <activiti:string>
+                       	execution.setVariable('wf_approveCount', 0);
+                       	execution.setVariable('wf_actualPercent', 0);
+                       	execution.setVariable('wf_requiredPercent', wf_requiredApprovePercent);
+                     </activiti:string>
+                  </activiti:field>
+            </activiti:executionListener>
+        </extensionElements>
+        
+        <startEvent id="start"
+            activiti:formKey="wf:submitGroupReviewTask" />
+        
+			
+        <sequenceFlow id='flow1' 
+            sourceRef='start'
+            targetRef='reviewTask'>
+            <!-- TODO: Once multiInstanceLoopCharacteristics support using expression as loopDataInputRef, remove 'wf_groupMembers' variable  -->
+            <extensionElements>
+	             <activiti:executionListener event="start" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+	        		<activiti:field name="script">
+	                     <activiti:string>
+	                        var members = people.getMembers(bpm_groupAssignee);
+	                        var memberNames = new java.util.ArrayList();
+	                        
+	                        for(var i in members) 
+                           {
+	                            memberNames.add(members[i].properties.userName);
+	                        }
+	                       	execution.setVariable('wf_groupMembers', memberNames);
+	                        execution.setVariable('wf_reviewerCount', memberNames.size());
+	                     </activiti:string>
+	                  </activiti:field>
+	            </activiti:executionListener>
+	         </extensionElements>
+        </sequenceFlow>
+
+        <userTask id="reviewTask" name="Review Task"
+            activiti:formKey="wf:activitiReviewTask">
+           <extensionElements>
+               <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+                  <activiti:field name="script">
+                     <activiti:string>
+                        if (typeof bpm_workflowDueDate != 'undefined') task.setVariableLocal('bpm_dueDate', bpm_workflowDueDate);
+                        if (typeof bpm_workflowPriority != 'undefined') task.priority = bpm_workflowPriority;
+                     </activiti:string>
+                  </activiti:field>
+               </activiti:taskListener>
+               <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+                  <activiti:field name="script">
+                     <activiti:string>
+                        if(task.getVariableLocal('wf_reviewOutcome') == 'Approve') {
+                             var newApprovedCount = wf_approveCount + 1;
+	                         var newApprovedPercentage = (newApprovedCount / wf_reviewerCount) * 100;
+	                         
+	                         execution.setVariable('wf_approveCount', newApprovedCount);
+	                         execution.setVariable('wf_actualPercent', newApprovedPercentage);
+                        }
+                     </activiti:string>
+                  </activiti:field>
+               </activiti:taskListener>
+           </extensionElements>
+           
+           <humanPerformer>
+                <resourceAssignmentExpression>
+                    <formalExpression>${reviewAssignee}</formalExpression>
+                </resourceAssignmentExpression>
+           </humanPerformer>
+           
+           <!-- For each assignee, task is created -->
+           <multiInstanceLoopCharacteristics isSequential="false">
+           	  <loopDataInputRef>wf_groupMembers</loopDataInputRef>
+           	  <inputDataItem name="reviewAssignee" />
+           	  <completionCondition>${wf_actualPercent >= wf_requiredApprovePercent}</completionCondition>
+           </multiInstanceLoopCharacteristics>
+        </userTask>
+
+        <sequenceFlow id='flow2' 
+        	sourceRef='reviewTask'
+            targetRef='reviewDecision' />
+
+        <exclusiveGateway  id="reviewDecision" name="Review Decision" /> 
+
+        <sequenceFlow id='flow3' sourceRef='reviewDecision' targetRef='approved' >
+            <conditionExpression xsi:type="tFormalExpression">${wf_actualPercent >= wf_requiredApprovePercent}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id='flow4' 
+        sourceRef='reviewDecision'
+            targetRef='rejected' />
+
+       <userTask id="approved" name="Document Approved"
+            activiti:formKey="wf:approvedParallelTask" >
+            <documentation>
+                The document was reviewed and approved.
+            </documentation>
+            <extensionElements>
+               <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+                  <activiti:field name="script">
+                     <activiti:string>
+                        if (typeof bpm_workflowDueDate != 'undefined') task.setVariableLocal('bpm_dueDate', bpm_workflowDueDate);
+                        if (typeof bpm_workflowPriority != 'undefined') task.priority = bpm_workflowPriority;
+                        
+                        // Set parallel review params on task, to be kept in history
+                        task.setVariableLocal('wf_reviewerCount', wf_reviewerCount);
+                        task.setVariableLocal('wf_requiredPercent', wf_requiredPercent);
+                        task.setVariableLocal('wf_actualPercent', wf_actualPercent);
+                        task.setVariableLocal('wf_approveCount', wf_approveCount);
+                     </activiti:string>
+                  </activiti:field>
+               </activiti:taskListener>
+            </extensionElements>
+            <humanPerformer>
+                <resourceAssignmentExpression>
+                    <formalExpression>${initiator.properties.userName}</formalExpression>
+                </resourceAssignmentExpression>
+            </humanPerformer>
+        </userTask>
+        
+        <userTask id="rejected" name="Document Rejected"
+            activiti:formKey="wf:rejectedParallelTask" >
+            <documentation>
+                The document was reviewed and rejected.
+            </documentation>
+            <extensionElements>
+               <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+                  <activiti:field name="script">
+                     <activiti:string>
+                        if (typeof bpm_workflowDueDate != 'undefined') task.setVariableLocal('bpm_dueDate', bpm_workflowDueDate);
+                        if (typeof bpm_workflowPriority != 'undefined') task.priority = bpm_workflowPriority;
+                        
+                        // Set parallel review params on task, to be kept in history
+                        task.setVariableLocal('wf_reviewerCount', wf_reviewerCount);
+                        task.setVariableLocal('wf_requiredPercent', wf_requiredPercent);
+                        task.setVariableLocal('wf_actualPercent', wf_actualPercent);
+                        task.setVariableLocal('wf_approveCount', wf_approveCount);
+                     </activiti:string>
+                  </activiti:field>
+               </activiti:taskListener>
+            </extensionElements>
+            <humanPerformer>
+                <resourceAssignmentExpression>
+                    <formalExpression>${initiator.properties.userName}</formalExpression>
+                </resourceAssignmentExpression>
+            </humanPerformer>
+        </userTask>
+
+        <sequenceFlow id='flow5' sourceRef='approved'
+            targetRef='end' />
+
+        <sequenceFlow id='flow6' sourceRef='rejected'
+            targetRef='end' />
+
+        <endEvent id="end" />
+
+    </process>
+    
+    <bpmndi:BPMNDiagram id="BPMNDiagram_ActivitiParallelGroupReview">
+      <bpmndi:BPMNPlane bpmnElement="activitiParallelGroupReview" id="BPMNPlane_ActivitiParallelGroupReview">
+	      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+	        <omgdc:Bounds height="35" width="35" x="30" y="200"></omgdc:Bounds>
+	      </bpmndi:BPMNShape>
+	      <bpmndi:BPMNShape bpmnElement="reviewTask" id="BPMNShape_reviewTask">
+	        <omgdc:Bounds height="55" width="105" x="105" y="190"></omgdc:Bounds>
+	      </bpmndi:BPMNShape>
+	      <bpmndi:BPMNShape bpmnElement="reviewDecision" id="BPMNShape_reviewDecision">
+	        <omgdc:Bounds height="40" width="40" x="250" y="197"></omgdc:Bounds>
+	      </bpmndi:BPMNShape>
+	      <bpmndi:BPMNShape bpmnElement="approved" id="BPMNShape_approved">
+	        <omgdc:Bounds height="55" width="105" x="330" y="137"></omgdc:Bounds>
+	      </bpmndi:BPMNShape>
+	      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+	        <omgdc:Bounds height="35" width="35" x="620" y="147"></omgdc:Bounds>
+	      </bpmndi:BPMNShape>
+	      <bpmndi:BPMNShape bpmnElement="rejected" id="BPMNShape_rejected">
+	        <omgdc:Bounds height="55" width="105" x="330" y="257"></omgdc:Bounds>
+	      </bpmndi:BPMNShape>
+	      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+	        <omgdi:waypoint x="65" y="217"></omgdi:waypoint>
+	        <omgdi:waypoint x="105" y="217"></omgdi:waypoint>
+	      </bpmndi:BPMNEdge>
+	      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+	        <omgdi:waypoint x="210" y="217"></omgdi:waypoint>
+	        <omgdi:waypoint x="250" y="217"></omgdi:waypoint>
+	      </bpmndi:BPMNEdge>
+	      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+	        <omgdi:waypoint x="270" y="197"></omgdi:waypoint>
+	        <omgdi:waypoint x="270" y="164"></omgdi:waypoint>
+	        <omgdi:waypoint x="330" y="164"></omgdi:waypoint>
+	      </bpmndi:BPMNEdge>
+	      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+	        <omgdi:waypoint x="270" y="237"></omgdi:waypoint>
+	        <omgdi:waypoint x="270" y="284"></omgdi:waypoint>
+	        <omgdi:waypoint x="330" y="284"></omgdi:waypoint>
+	      </bpmndi:BPMNEdge>
+	      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+	        <omgdi:waypoint x="435" y="164"></omgdi:waypoint>
+	        <omgdi:waypoint x="620" y="164"></omgdi:waypoint>
+	      </bpmndi:BPMNEdge>
+	      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+	        <omgdi:waypoint x="435" y="284"></omgdi:waypoint>
+	        <omgdi:waypoint x="637" y="284"></omgdi:waypoint>
+	        <omgdi:waypoint x="637" y="182"></omgdi:waypoint>
+	      </bpmndi:BPMNEdge>
+      </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+
+</definitions>

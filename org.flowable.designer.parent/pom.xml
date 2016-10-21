@@ -1,0 +1,175 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.flowable.designer</groupId>
+	<artifactId>org.flowable.designer.parent</artifactId>
+	<version>5.18.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Flowable Designer - Parent project</name>
+	<description>Flowable Designer - Parent project pom</description>
+
+	<properties>
+		<tycho-version>0.22.0</tycho-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>platform-juno</id>
+			<activation>
+				<property>
+					<name>platform-version-name</name>
+					<value>juno</value>
+				</property>
+			</activation>
+			<properties>
+				<eclipse-site>http://download.eclipse.org/releases/juno</eclipse-site>
+				<platform-version>[3.8)</platform-version>
+				<platform-version-name>juno</platform-version-name>
+				<graphiti-site>http://archive.eclipse.org/graphiti/updates/0.10.1</graphiti-site>
+			</properties>
+		</profile>
+		<profile>
+			<id>platform-kepler</id>
+			<activation>
+				<property>
+					<name>platform-version-name</name>
+					<value>kepler</value>
+				</property>
+			</activation>
+			<properties>
+				<eclipse-site>http://download.eclipse.org/releases/kepler</eclipse-site>
+				<platform-version>[4.3)</platform-version>
+				<platform-version-name>kepler</platform-version-name>
+				<graphiti-site>http://download.eclipse.org/graphiti/updates/0.10.2</graphiti-site>
+			</properties>
+		</profile>
+		<profile>
+			<id>platform-luna</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>platform-version-name</name>
+					<value>luna</value>
+				</property>
+			</activation>
+			<properties>
+				<eclipse-site>http://download.eclipse.org/releases/luna</eclipse-site>
+				<platform-version>[4.4)</platform-version>
+				<platform-version-name>luna</platform-version-name>
+				<graphiti-site>http://download.eclipse.org/graphiti/updates/0.11.4</graphiti-site>
+			</properties>
+		</profile>
+	</profiles>
+
+	<modules>
+		<module>../org.flowable.designer.libs</module>
+		<module>../org.flowable.designer.eclipse</module>
+		<module>../org.flowable.designer.gui</module>
+		<module>../org.flowable.designer.util</module>
+		<module>../org.flowable.designer.help</module>
+		<module>../org.flowable.designer.feature</module>
+		<module>../org.flowable.designer.updatesite</module>
+		<module>../org.flowable.designer.integration</module>
+		<module>../org.flowable.designer.validation.bpmn20</module>
+		<module>../org.flowable.designer.kickstart.util</module>
+		<module>../org.flowable.designer.kickstart.eclipse</module>
+		<module>../org.flowable.designer.kickstart.gui.process</module>
+		<module>../org.flowable.designer.kickstart.gui.form</module>
+	</modules>
+
+	<repositories>
+		<repository>
+			<id>eclipse-platform</id>
+			<layout>p2</layout>
+			<url>${eclipse-site}</url>
+		</repository>
+
+		<repository>
+			<id>Graphiti</id>
+			<layout>p2</layout>
+			<url>${graphiti-site}</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<pluginManagement>
+      		<plugins>
+        		<plugin>
+          			<groupId>org.eclipse.tycho</groupId>
+         			<artifactId>tycho-versions-plugin</artifactId>
+          			<version>${tycho-version}</version>
+        		</plugin>
+      		</plugins>
+   		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+        		<groupId>org.eclipse.tycho</groupId>
+        		<artifactId>tycho-versions-plugin</artifactId>
+        		<version>${tycho-version}</version>
+      		</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<resolver>p2</resolver>
+					<environments>
+						<!-- <environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment> -->
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<header>${basedir}/../license/header.txt</header>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+		             		<goal>check</goal>
+		            	</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
