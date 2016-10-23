@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="org.activiti.designer.eclipse.extension.ExportMarshaller" name="Activiti Designer Export Marshaller" schema="schema/org.activiti.designer.eclipse.extension.ExportMarshaller.exsd"/>
-   <extension-point id="org.activiti.designer.eclipse.extension.ProcessValidator" name="Activiti Designer Process Validator" schema="schema/org.activiti.designer.eclipse.extension.ProcessValidator.exsd"/>
+   <extension-point id="org.activiti.designer.eclipse.extension.ExportMarshaller" name="Flowble Designer Export Marshaller" schema="schema/org.activiti.designer.eclipse.extension.ExportMarshaller.exsd"/>
+   <extension-point id="org.activiti.designer.eclipse.extension.ProcessValidator" name="Flowble Designer Process Validator" schema="schema/org.activiti.designer.eclipse.extension.ProcessValidator.exsd"/>
    <extension-point id="org.activiti.designer.eclipse.extension.IconProvider" name="Icon Provider" schema="schema/org.activiti.designer.eclipse.extension.IconProvider.exsd"/>
    <extension-point id="org.activiti.designer.eclipse.extension.PaletteExtensionProvider" name="Palette Extension Provider" schema="schema/org.activiti.designer.eclipse.extension.PaletteExtensionProvider.exsd"/>
    <extension
@@ -11,44 +11,44 @@
             class="org.activiti.designer.eclipse.perspective.ActivitiPerspective"
             fixed="false"
             icon="icons/logo/activiti.logo.gradients.16x16.png"
-            id="org.activiti.designer.eclipse.perspective.ActivitiPerspective"
-            name="Activiti">
+            id="org.activiti.designer.eclipse.perspective.FlowablePerspective"
+            name="Flowble">
       </perspective>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
       <category
             id="org.activiti.designer.eclipse.category"
-            name="Activiti">
+            name="Flowable">
       </category>
       <wizard
             category="org.activiti.designer.eclipse.category"
             class="org.activiti.designer.eclipse.ui.wizard.project.CreateDefaultActivitiProjectWizard"
-            finalPerspective="org.activiti.designer.eclipse.perspective.ActivitiPerspective"
+            finalPerspective="org.activiti.designer.eclipse.perspective.FlowablePerspective"
             icon="icons/logo/activiti.logo.gradients.16x16.png"
             id="org.activiti.designer.eclipse.ui.wizard.project.CreateDefaultActivitiProjectWizard"
-            name="Activiti Project"
+            name="Flowable Project"
             project="true">
             <description>
-               Create a new Activiti Project with a basic folder structure and a Maven POM file.
+               Create a new Flowable Project with a basic folder structure and a Maven POM file.
             </description>
       </wizard>
       
        <wizard
             category="org.activiti.designer.eclipse.category"
             class="org.activiti.designer.eclipse.ui.wizard.diagram.CreateDefaultActivitiDiagramWizard"
-            finalPerspective="org.activiti.designer.eclipse.perspective.ActivitiPerspective"
+            finalPerspective="org.activiti.designer.eclipse.perspective.FlowablePerspective"
             icon="icons/logo/activiti.logo.gradients.16x16.png"
             id="org.activiti.designer.eclipse.ui.wizard.diagram.CreateDefaultActivitiDiagramWizard"
-            name="Activiti Diagram">
+            name="Flowable Diagram">
              <description>
-               Create a new Activiti BPMN 2.0 Diagram.
+               Create a new Flowable BPMN 2.0 Diagram.
             </description>
       </wizard>
    </extension>
    <extension
          id="org.activiti.designer.nature"
-         name="Activiti nature"
+         name="Flowable nature"
          point="org.eclipse.core.resources.natures">
       <runtime>
          <run
@@ -73,7 +73,7 @@
          icon="community_icon.png"
          id="org.activiti.designer.editor.diagramEditor"
          matchingStrategy="org.activiti.designer.eclipse.editor.ActivitiDiagramMatchingStrategy"
-         name="Activiti Diagram Editor">
+         name="Flowable Diagram Editor">
       <contentTypeBinding
             contentTypeId="org.activiti.designer.editor.diagram.contenttype">
       </contentTypeBinding>
@@ -96,27 +96,27 @@
           base-type="org.eclipse.core.runtime.xml"
           file-extensions="bpmn"
           id="org.activiti.designer.editor.diagram.contenttype"
-          name="Activiti Diagram Editor File"
+          name="Flowable Diagram Editor File"
           priority="normal">
     </content-type>
  </extension>
- 	<extension id="activitiMarker" point="org.eclipse.core.resources.markers" name="Activiti Marker">
+ 	<extension id="activitiMarker" point="org.eclipse.core.resources.markers" name="Flowable Marker">
 	   <super type="org.eclipse.core.resources.problemmarker"/>
 	   <persistent value="true"/>
 	</extension>
-	<extension id="activitiGeneralMarker" point="org.eclipse.core.resources.markers" name="Activiti General Marker">
+	<extension id="activitiGeneralMarker" point="org.eclipse.core.resources.markers" name="Flowable General Marker">
 	   <super type="org.eclipse.core.resources.problemmarker"/>
 	   <super type="org.activiti.designer.eclipse.activitiMarker"/>
 	   <persistent value="true"/>
 	</extension>
-	<extension id="activitiMarshallerMarker" point="org.eclipse.core.resources.markers" name="Activiti Marshaller Marker">
+	<extension id="activitiMarshallerMarker" point="org.eclipse.core.resources.markers" name="Flowable Marshaller Marker">
 	   <super type="org.eclipse.core.resources.problemmarker"/>
 	   <super type="org.activiti.designer.eclipse.activitiMarker"/>
 	   <super type="org.activiti.designer.eclipse.activitiGeneralMarker"/>
 	   <attribute name="nodeId"/>
 	   <persistent value="true"/>
 	</extension>
-	<extension id="activitiValidatorMarker" point="org.eclipse.core.resources.markers" name="Activiti Validator Marker">
+	<extension id="activitiValidatorMarker" point="org.eclipse.core.resources.markers" name="Flowable Validator Marker">
 		<super type="org.eclipse.core.resources.problemmarker"/>
 	   <super type="org.activiti.designer.eclipse.activitiMarker"/>
 	   <super type="org.activiti.designer.eclipse.activitiGeneralMarker"/>
@@ -145,12 +145,12 @@
       class="org.eclipse.ui.navigator.CommonNavigator"
       icon="icons/logo/activiti.logo.gradients.16x16.png"
       id="org.activiti.designer.eclipse.view.navigator"
-      name="Activiti Explorer">
+      name="Flowable Explorer">
     </view>
     
     <category
       id="org.activiti.designer.eclipse.view"
-      name="Activiti">
+      name="Flowable">
     </category>
     <view
           category="org.activiti.designer.eclipse.view"
@@ -291,7 +291,7 @@
           icon="community_icon.png"
           id="org.activiti.designer.eclipse.navigator.content.project"
           labelProvider="org.activiti.designer.eclipse.navigator.TreeNodeLabelProvider"
-          name="Activiti Project Contents"
+          name="Flowable Project Contents"
           priority="higher">
      	
       <triggerPoints>
@@ -327,9 +327,9 @@
       </commonWizard>
       <commonFilter
             activeByDefault="false"
-            description="Hides all projects that are not Activiti Designer projects"
+            description="Hides all projects that are not Flowable Designer projects"
             id="org.activiti.designer.eclipse.navigator.filters.hideNonActivitiProjects"
-            name="Hide non-Activiti Projects"
+            name="Hide non-Flowable Projects"
             visibleInUI="true">
             
          <!-- Define which elements will be filtered, meaning removed from view -->
@@ -430,7 +430,7 @@
         <menu
               icon="icons/logo/activiti.logo.gradients.16x16.png"
               id="org.activiti.designer.eclipse.cloudrepo.menu"
-              label="Activiti Editor"
+              label="Flowable Editor"
               path="additions">
            <separator
                  name="group1">

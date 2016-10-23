@@ -31,7 +31,6 @@ public class ActivitiCloudEditorPreferencesPageInitializer extends AbstractPrefe
   public void initializeDefaultPreferences() {
     IPreferenceStore store = PreferencesUtil.getActivitiDesignerPreferenceStore(ActivitiPlugin.getDefault());
 
-    // CMIS settings
     store.setDefault(Preferences.ACTIVITI_CLOUD_EDITOR_URL.getPreferenceId(), "https://activiti.alfresco.com/activiti-app");
     store.setDefault(Preferences.ACTIVITI_CLOUD_EDITOR_USERNAME.getPreferenceId(), "YOUR_EMAIL");
     store.setDefault(Preferences.ACTIVITI_CLOUD_EDITOR_PASSWORD.getPreferenceId(), "password");

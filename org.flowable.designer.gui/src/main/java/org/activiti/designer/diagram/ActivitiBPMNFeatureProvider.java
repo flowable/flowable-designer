@@ -172,13 +172,6 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 
-import com.alfresco.designer.gui.controller.AlfrescoStartEventShapeController;
-import com.alfresco.designer.gui.controller.AlfrescoTaskShapeController;
-import com.alfresco.designer.gui.features.CreateAlfrescoMailTaskFeature;
-import com.alfresco.designer.gui.features.CreateAlfrescoScriptTaskFeature;
-import com.alfresco.designer.gui.features.CreateAlfrescoStartEventFeature;
-import com.alfresco.designer.gui.features.CreateAlfrescoUserTaskFeature;
-
 public class ActivitiBPMNFeatureProvider extends DefaultFeatureProvider {
 
   protected List<BusinessObjectShapeController> shapeControllers;
@@ -208,8 +201,6 @@ public class ActivitiBPMNFeatureProvider extends DefaultFeatureProvider {
     shapeControllers.add(new SequenceFlowShapeController(this));
     shapeControllers.add(new MessageFlowShapeController(this));
     shapeControllers.add(new AssociationShapeController(this));
-    shapeControllers.add(new AlfrescoStartEventShapeController(this));
-    shapeControllers.add(new AlfrescoTaskShapeController(this));
     
     this.modelUpdaters = new ArrayList<BpmnProcessModelUpdater>();
     modelUpdaters.add(new StartEventModelUpdater(this));
@@ -287,18 +278,17 @@ public class ActivitiBPMNFeatureProvider extends DefaultFeatureProvider {
 
   @Override
   public ICreateFeature[] getCreateFeatures() {
-    return new ICreateFeature[] { new CreateAlfrescoStartEventFeature(this), new CreateStartEventFeature(this), new CreateTimerStartEventFeature(this),
+    return new ICreateFeature[] { new CreateStartEventFeature(this), new CreateTimerStartEventFeature(this),
         new CreateMessageStartEventFeature(this), new CreateErrorStartEventFeature(this), new CreateSignalStartEventFeature(this), new CreateEndEventFeature(this),
         new CreateErrorEndEventFeature(this), new CreateTerminateEndEventFeature(this), new CreateCancelEndEventFeature(this), new CreateUserTaskFeature(this),
-        new CreateAlfrescoUserTaskFeature(this), new CreateScriptTaskFeature(this), new CreateServiceTaskFeature(this), new CreateMailTaskFeature(this),
+        new CreateScriptTaskFeature(this), new CreateServiceTaskFeature(this), new CreateMailTaskFeature(this),
         new CreateManualTaskFeature(this), new CreateReceiveTaskFeature(this), new CreateBusinessRuleTaskFeature(this), 
         new CreateParallelGatewayFeature(this), new CreateExclusiveGatewayFeature(this), new CreateInclusiveGatewayFeature(this), new CreateEventGatewayFeature(this),
         new CreateBoundaryTimerFeature(this), new CreateBoundaryErrorFeature(this), new CreateBoundaryMessageFeature(this), new CreateBoundaryCancelFeature(this), new CreateBoundaryCompensateFeature(this), new CreateBoundarySignalFeature(this), 
         new CreateTimerCatchingEventFeature(this), new CreateSignalCatchingEventFeature(this), new CreateMessageCatchingEventFeature(this), 
         new CreateSignalThrowingEventFeature(this), new CreateCompensationThrowingEventFeature(this), new CreateNoneThrowingEventFeature(this),
         new CreateEventSubProcessFeature(this), new CreateTransactionFeature(this), new CreateEmbeddedSubProcessFeature(this), new CreatePoolFeature(this), new CreateLaneFeature(this),
-        new CreateCallActivityFeature(this), new CreateAlfrescoScriptTaskFeature(this), new CreateAlfrescoMailTaskFeature(this),
-        new CreateTextAnnotationFeature(this) };
+        new CreateCallActivityFeature(this), new CreateTextAnnotationFeature(this) };
   }
 
   @Override

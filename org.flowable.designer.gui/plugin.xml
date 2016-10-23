@@ -309,30 +309,6 @@
                tab="org.activiti.designer.mainConfigTab">
          </propertySection>
          <propertySection
-               class="com.alfresco.designer.gui.property.PropertyAlfrescoUserTaskSection"
-               filter="com.alfresco.designer.gui.property.PropertyAlfrescoUserTaskFilter"
-               id="org.activiti.designer.mainConfigTab.alfrescoUsertask"
-               tab="org.activiti.designer.mainConfigTab">
-         </propertySection>
-         <propertySection
-               class="com.alfresco.designer.gui.property.PropertyAlfrescoStartEventSection"
-               filter="com.alfresco.designer.gui.property.PropertyAlfrescoStartEventFilter"
-               id="org.activiti.designer.mainConfigTab.alfrescoStartevent"
-               tab="org.activiti.designer.mainConfigTab">
-         </propertySection>
-         <propertySection
-               class="com.alfresco.designer.gui.property.PropertyAlfrescoScriptTaskSection"
-               filter="com.alfresco.designer.gui.property.PropertyAlfrescoScriptTaskFilter"
-               id="org.activiti.designer.mainConfigTab.alfrescoScripttask"
-               tab="org.activiti.designer.mainConfigTab">
-         </propertySection>
-         <propertySection
-               class="com.alfresco.designer.gui.property.PropertyAlfrescoMailTaskSection"
-               filter="com.alfresco.designer.gui.property.PropertyAlfrescoMailTaskFilter"
-               id="org.activiti.designer.mainConfigTab.alfrescoMailtask"
-               tab="org.activiti.designer.mainConfigTab">
-         </propertySection>
-         <propertySection
                class="org.activiti.designer.property.PropertyErrorEndEventSection"
                filter="org.activiti.designer.property.PropertyErrorEndEventFilter"
                id="org.activiti.designer.mainConfigTab.errorendevent"

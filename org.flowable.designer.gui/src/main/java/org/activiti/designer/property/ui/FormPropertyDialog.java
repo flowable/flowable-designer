@@ -13,6 +13,10 @@
  */
 package org.activiti.designer.property.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.activiti.bpmn.model.FormValue;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -46,7 +50,7 @@ public class FormPropertyDialog extends Dialog implements ITabbedPropertyConstan
 	public String required;
 	public String readable;
 	public String writeable;
-	public String formValues;
+	public List<FormValue> formValues;
 	
 	protected String savedId;
 	protected String savedName;
@@ -58,7 +62,7 @@ public class FormPropertyDialog extends Dialog implements ITabbedPropertyConstan
 	protected String savedRequired;
 	protected String savedReadable;
 	protected String savedWriteable;
-	protected String savedFormValues;
+	protected List<FormValue> savedFormValues;
 
 	public FormPropertyDialog(Shell parent, TableItem[] fieldList) {
 		// Pass the default styles here
@@ -68,7 +72,7 @@ public class FormPropertyDialog extends Dialog implements ITabbedPropertyConstan
 	public FormPropertyDialog(Shell parent, TableItem[] fieldList, String savedId, 
 	        String savedName, String savedType, String savedExpression, String savedVariable, 
 	        String savedDefaultExpression, String savedDatePattern, String savedRequired, String savedReadable, 
-	        String savedWriteable, String savedFormValues) {
+	        String savedWriteable, List<FormValue> savedFormValues) {
     // Pass the default styles here
     this(parent, fieldList, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE);
     this.savedId = savedId;
@@ -247,7 +251,7 @@ public class FormPropertyDialog extends Dialog implements ITabbedPropertyConstan
 		ok.setLayoutData(data);
 		ok.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				if(idText.getText() == null || idText.getText().length() == 0) {
+				if (idText.getText() == null || idText.getText().length() == 0) {
 					MessageDialog.openError(shell, "Validation error", "ID must be filled.");
 					return;
 				}
@@ -261,15 +265,15 @@ public class FormPropertyDialog extends Dialog implements ITabbedPropertyConstan
 				readable = readableDropDown.getText();
 				writeable = writeableDropDown.getText();
 				required = requiredDropDown.getText();
-				formValues = "";
+				formValues = new ArrayList<FormValue>();
 				TableItem[] formValueItems = formValueEditor.getItems();
-				if(formValueItems != null) {
-					for(int i = 0; i < formValueItems.length; i++) {
+				if (formValueItems != null) {
+					for (int i = 0; i < formValueItems.length; i++) {
 						TableItem formValueItem = formValueItems[i];
-						if(i > 0) {
-							formValues += ";"; 
-						}
-						formValues += formValueItem.getText(0) + ":" + formValueItem.getText(1);
+						FormValue formValue = new FormValue();
+						formValue.setId(formValueItem.getText(0));
+						formValue.setName(formValueItem.getText(1));
+						formValues.add(formValue);
 					}
 				}
 				shell.close();

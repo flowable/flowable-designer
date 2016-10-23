@@ -153,11 +153,6 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 
-import com.alfresco.designer.gui.features.CreateAlfrescoMailTaskFeature;
-import com.alfresco.designer.gui.features.CreateAlfrescoScriptTaskFeature;
-import com.alfresco.designer.gui.features.CreateAlfrescoStartEventFeature;
-import com.alfresco.designer.gui.features.CreateAlfrescoUserTaskFeature;
-
 public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
 
   private static final Map<Class< ? extends ICreateFeature>, PaletteEntry> toolMapping = new HashMap<Class< ? extends ICreateFeature>, PaletteEntry>();
@@ -171,7 +166,6 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
     toolMapping.put(CreateMessageStartEventFeature.class, PaletteEntry.MESSAGE_START_EVENT);
     toolMapping.put(CreateErrorStartEventFeature.class, PaletteEntry.ERROR_START_EVENT);
     toolMapping.put(CreateSignalStartEventFeature.class, PaletteEntry.SIGNAL_START_EVENT);
-    toolMapping.put(CreateAlfrescoStartEventFeature.class, PaletteEntry.ALFRESCO_START_EVENT);
     toolMapping.put(CreateEndEventFeature.class, PaletteEntry.END_EVENT);
     toolMapping.put(CreateErrorEndEventFeature.class, PaletteEntry.ERROR_END_EVENT);
     toolMapping.put(CreateTerminateEndEventFeature.class, PaletteEntry.TERMINATE_END_EVENT);
@@ -193,7 +187,6 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
     toolMapping.put(CreateEventSubProcessFeature.class, PaletteEntry.EVENT_SUBPROCESS);
     toolMapping.put(CreateTransactionFeature.class, PaletteEntry.TRANSACTION);
     toolMapping.put(CreateUserTaskFeature.class, PaletteEntry.USER_TASK);
-    toolMapping.put(CreateAlfrescoUserTaskFeature.class, PaletteEntry.ALFRESCO_USER_TASK);
     toolMapping.put(CreateBoundaryTimerFeature.class, PaletteEntry.BOUNDARY_TIMER);
     toolMapping.put(CreateBoundaryErrorFeature.class, PaletteEntry.BOUNDARY_ERROR);
     toolMapping.put(CreateBoundaryMessageFeature.class, PaletteEntry.BOUNDARY_MESSAGE);
@@ -207,8 +200,6 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
     toolMapping.put(CreateCompensationThrowingEventFeature.class, PaletteEntry.THROW_COMPENSATION);
     toolMapping.put(CreateNoneThrowingEventFeature.class, PaletteEntry.THROW_NONE);
     toolMapping.put(CreateBusinessRuleTaskFeature.class, PaletteEntry.BUSINESSRULE_TASK);
-    toolMapping.put(CreateAlfrescoScriptTaskFeature.class, PaletteEntry.ALFRESCO_SCRIPT_TASK);
-    toolMapping.put(CreateAlfrescoMailTaskFeature.class, PaletteEntry.ALFRESCO_MAIL_TASK);
     toolMapping.put(CreateTextAnnotationFeature.class, PaletteEntry.TEXT_ANNOTATION);
   }
 
@@ -346,12 +337,6 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
           "Create a new intermediate throw signal event", PluginImage.IMG_THROW_SIGNAL);
       addContextButton(otherElementButton, new CreateCompensationThrowingEventFeature(getFeatureProvider()), taskContext, "Create intermediate throw compensation event",
           "Create a new intermediate throw compensation event", PluginImage.IMG_THROW_COMPENSATION);
-      addContextButton(otherElementButton, new CreateAlfrescoScriptTaskFeature(getFeatureProvider()), taskContext, "Create alfresco script task",
-          "Create a new alfresco script task", PluginImage.IMG_SERVICETASK);
-      addContextButton(otherElementButton, new CreateAlfrescoUserTaskFeature(getFeatureProvider()), taskContext, "Create alfresco user task",
-          "Create a new alfresco user task", PluginImage.IMG_USERTASK);
-      addContextButton(otherElementButton, new CreateAlfrescoMailTaskFeature(getFeatureProvider()), taskContext, "Create alfresco mail task",
-          "Create a new alfresco mail task", PluginImage.IMG_MAILTASK);
     }
 
     ContextButtonEntry editElementButton = new ContextButtonEntry(null, null);
@@ -693,8 +678,7 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
     IPaletteCompartmentEntry intermediateEventCompartmentEntry = new PaletteCompartmentEntry("Intermediate event", null);
     IPaletteCompartmentEntry artifactsCompartmentEntry = new PaletteCompartmentEntry("Artifacts", null);
     IPaletteCompartmentEntry connectionCompartmentEntry = new PaletteCompartmentEntry("Connection", null);
-    IPaletteCompartmentEntry alfrescoCompartmentEntry = new PaletteCompartmentEntry("Alfresco", PluginImage.IMG_ALFRESCO_LOGO.getImageKey());
-
+    
     for (final IPaletteCompartmentEntry entry : superCompartments) {
 
       // Prune any disabled palette entries in the Objects compartment
@@ -789,14 +773,6 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
           containerCompartmentEntry.getToolEntries().add(toolEntry);
         } else if ("callactivity".equalsIgnoreCase(toolEntry.getLabel())) {
           taskCompartmentEntry.getToolEntries().add(toolEntry);
-        } else if ("alfrescousertask".equalsIgnoreCase(toolEntry.getLabel())) {
-          alfrescoCompartmentEntry.getToolEntries().add(toolEntry);
-        } else if ("alfrescostartevent".equalsIgnoreCase(toolEntry.getLabel())) {
-          alfrescoCompartmentEntry.getToolEntries().add(toolEntry);
-        } else if ("alfrescoscripttask".equalsIgnoreCase(toolEntry.getLabel())) {
-          alfrescoCompartmentEntry.getToolEntries().add(toolEntry);
-        } else if ("alfrescomailtask".equalsIgnoreCase(toolEntry.getLabel())) {
-          alfrescoCompartmentEntry.getToolEntries().add(toolEntry);
         } else if ("annotation".equalsIgnoreCase(toolEntry.getLabel())) {
           artifactsCompartmentEntry.getToolEntries().add(toolEntry);
         }
@@ -831,11 +807,6 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
     // Always add the connection compartment
     ret.add(connectionCompartmentEntry);
     
-    if (PreferencesUtil.getBooleanPreference(Preferences.ALFRESCO_ENABLE, ActivitiPlugin.getDefault()) && 
-        alfrescoCompartmentEntry.getToolEntries().size() > 0) {
-      ret.add(alfrescoCompartmentEntry);
-    }
-
     addCustomServiceTasks(project, ret);
     addCustomUserTasks(project, ret);
 

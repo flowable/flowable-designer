@@ -30,22 +30,12 @@ import org.eclipse.jface.preference.IPreferenceStore;
  */
 public class ActivitiSavePreferencesPageInitializer extends AbstractPreferenceInitializer {
 
-  private static final String FORMTYPES_STARTEVENT = "wf:submitAdhocTask;wf:submitReviewTask;wf:submitGroupReviewTask;wf:submitParallelReviewTask";
-  private static final String FORMTYPES_USERTASK = "wf:adhocTask;wf:completedAdhocTask;wf:activitiReviewTask;wf:approvedTask;wf:rejectedTask;wf:approvedParallelTask;wf:rejectedParallelTask";
-
   public ActivitiSavePreferencesPageInitializer() {
   }
 
   @Override
   public void initializeDefaultPreferences() {
     IPreferenceStore store = PreferencesUtil.getActivitiDesignerPreferenceStore(ActivitiPlugin.getDefault());
-
-    // BPMN 2 Marshaller
-    store.setDefault(Preferences.ALFRESCO_ENABLE.getPreferenceId(), true);
-
-    store.setDefault(Preferences.ALFRESCO_FORMTYPES_STARTEVENT.getPreferenceId(), FORMTYPES_STARTEVENT);
-
-    store.setDefault(Preferences.ALFRESCO_FORMTYPES_USERTASK.getPreferenceId(), FORMTYPES_USERTASK);
 
     // Image Marshaller
     store.setDefault(Preferences.SAVE_IMAGE.getPreferenceId(), false);

@@ -13,11 +13,14 @@
  */
 package org.activiti.designer.features;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import org.activiti.bpmn.model.SubProcess;
 import org.activiti.designer.eclipse.common.ActivitiPlugin;
+import org.activiti.designer.eclipse.editor.ActivitiDiagramEditor;
+import org.activiti.designer.eclipse.util.FileService;
 import org.activiti.designer.eclipse.util.Util;
 import org.activiti.designer.util.eclipse.ActivitiUiUtil;
 import org.activiti.designer.util.preferences.Preferences;
@@ -36,6 +39,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.features.AbstractDrillDownFeature;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 
@@ -123,8 +127,8 @@ public class ExpandCollapseSubProcessFeature extends AbstractDrillDownFeature {
 		boolean createContent = PreferencesUtil.getBooleanPreference(
 		    Preferences.EDITOR_ADD_DEFAULT_CONTENT_TO_DIAGRAMS, ActivitiPlugin.getDefault());
 
-		/*final ActivitiDiagramEditor diagramEditor
-		  = (ActivitiDiagramEditor) getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
+		final ActivitiDiagramEditor diagramEditor
+		  = (ActivitiDiagramEditor) getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer();
 
 		if (createContent) {
 			final InputStream contentStream = Util.getContentStream(Util.Content.NEW_SUBPROCESS_CONTENT);
@@ -135,7 +139,7 @@ public class ExpandCollapseSubProcessFeature extends AbstractDrillDownFeature {
 		} else {
 			diagram = Graphiti.getPeCreateService().createDiagram("BPMNdiagram", subprocessName, true);
 			domain = FileService.createEmfFileForDiagram(uri, diagram, diagramEditor, null, null);
-		}*/
+		}
 
 		return diagram;
 	}

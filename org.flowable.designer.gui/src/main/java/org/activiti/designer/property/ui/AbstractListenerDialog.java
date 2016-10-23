@@ -21,9 +21,6 @@ import org.activiti.bpmn.model.FieldExtension;
 import org.activiti.bpmn.model.ImplementationType;
 import org.activiti.bpmn.model.alfresco.AlfrescoScriptTask;
 import org.activiti.bpmn.model.alfresco.AlfrescoUserTask;
-import org.activiti.designer.eclipse.common.ActivitiPlugin;
-import org.activiti.designer.util.preferences.Preferences;
-import org.activiti.designer.util.preferences.PreferencesUtil;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.search.SearchEngine;
@@ -215,38 +212,6 @@ public abstract class AbstractListenerDialog extends Dialog implements ITabbedPr
       }
       
     });
-    
-    if (PreferencesUtil.getBooleanPreference(Preferences.ALFRESCO_ENABLE, ActivitiPlugin.getDefault())) {
-      alfrescoExecutionTypeButton = new Button(radioTypeComposite, SWT.RADIO);
-      alfrescoExecutionTypeButton.setText("Alfresco execution script");
-      alfrescoExecutionTypeButton.addSelectionListener(new SelectionListener() {
-        
-        @Override
-        public void widgetSelected(SelectionEvent event) {
-          enableAlfrescoType(false);
-        }
-      
-        @Override
-        public void widgetDefaultSelected(SelectionEvent event) {
-        }
-        
-      });
-      
-      alfrescoTaskTypeButton = new Button(radioTypeComposite, SWT.RADIO);
-      alfrescoTaskTypeButton.setText("Alfresco task script");
-      alfrescoTaskTypeButton.addSelectionListener(new SelectionListener() {
-        
-        @Override
-        public void widgetSelected(SelectionEvent event) {
-          enableAlfrescoType(true);
-        }
-      
-        @Override
-        public void widgetDefaultSelected(SelectionEvent event) {
-        }
-        
-      });
-    }
     
     createLabel(shell, "Type", radioTypeComposite);
 
@@ -469,21 +434,13 @@ public abstract class AbstractListenerDialog extends Dialog implements ITabbedPr
 		// to dismiss
 		shell.setDefaultButton(ok);
 		
-		if(savedListener == null || savedListener.getImplementationType() == null) {
+		if (savedListener == null || savedListener.getImplementationType() == null) {
 		  classTypeButton.setSelection(true);
       enableClassType();
-		} else if (PreferencesUtil.getBooleanPreference(Preferences.ALFRESCO_ENABLE, ActivitiPlugin.getDefault()) && 
-		    AlfrescoUserTask.ALFRESCO_SCRIPT_TASK_LISTENER.equalsIgnoreCase(savedListener.getImplementation())) {
-		  alfrescoTaskTypeButton.setSelection(true);
-      enableAlfrescoType(true);
-		} else if (PreferencesUtil.getBooleanPreference(Preferences.ALFRESCO_ENABLE, ActivitiPlugin.getDefault()) && 
-		    AlfrescoScriptTask.ALFRESCO_SCRIPT_EXECUTION_LISTENER.equalsIgnoreCase(savedListener.getImplementation())) {
-      alfrescoExecutionTypeButton.setSelection(true);
-      enableAlfrescoType(false);
-		} else if(ImplementationType.IMPLEMENTATION_TYPE_CLASS.equals(savedListener.getImplementationType())) {
+		} else if (ImplementationType.IMPLEMENTATION_TYPE_CLASS.equals(savedListener.getImplementationType())) {
       classTypeButton.setSelection(true);
       enableClassType();
-    } else if(ImplementationType.IMPLEMENTATION_TYPE_EXPRESSION.equals(savedListener.getImplementationType())){
+    } else if (ImplementationType.IMPLEMENTATION_TYPE_EXPRESSION.equals(savedListener.getImplementationType())){
       expressionTypeButton.setSelection(true);
       enableExpressionType();
     } else {
@@ -504,7 +461,6 @@ public abstract class AbstractListenerDialog extends Dialog implements ITabbedPr
 	  setVisibleClassType(true);
     setVisibleExpressionType(false);
     setVisibleDelegateExpressionType(false);
-    setVisibleAlfrescoType(false, false);
     setImplementationType(ImplementationType.IMPLEMENTATION_TYPE_CLASS);
 	}
 	
@@ -512,7 +468,6 @@ public abstract class AbstractListenerDialog extends Dialog implements ITabbedPr
 	  setVisibleClassType(false);
     setVisibleExpressionType(true);
     setVisibleDelegateExpressionType(false);
-    setVisibleAlfrescoType(false, false);
     setImplementationType(ImplementationType.IMPLEMENTATION_TYPE_EXPRESSION);
   }
 	
@@ -520,21 +475,7 @@ public abstract class AbstractListenerDialog extends Dialog implements ITabbedPr
 	  setVisibleClassType(false);
     setVisibleExpressionType(false);
     setVisibleDelegateExpressionType(true);
-    setVisibleAlfrescoType(false, false);
     setImplementationType(ImplementationType.IMPLEMENTATION_TYPE_DELEGATEEXPRESSION);
-  }
-	
-	private void enableAlfrescoType(boolean isTask) {
-    setVisibleClassType(false);
-    setVisibleExpressionType(false);
-    setVisibleDelegateExpressionType(false);
-    setVisibleAlfrescoType(true, isTask);
-    if (isTask) {
-      implementation = AlfrescoUserTask.ALFRESCO_SCRIPT_TASK_LISTENER;
-    } else {
-      implementation = AlfrescoScriptTask.ALFRESCO_SCRIPT_EXECUTION_LISTENER;
-    }
-    setImplementationType(ImplementationType.IMPLEMENTATION_TYPE_CLASS);
   }
 	
 	private void setVisibleClassType(boolean visible) {
@@ -554,29 +495,6 @@ public abstract class AbstractListenerDialog extends Dialog implements ITabbedPr
     delegateExpressionTypeButton.setSelection(visible);
     delegateExpressionText.setVisible(visible);
     delegateExpressionLabel.setVisible(visible);
-  }
-  
-  private void setVisibleAlfrescoType(boolean visible, boolean isTask) {
-    if (PreferencesUtil.getBooleanPreference(Preferences.ALFRESCO_ENABLE, ActivitiPlugin.getDefault())) {
-      if (visible) {
-        if (isTask) {
-          alfrescoTaskTypeButton.setSelection(visible);
-        } else {
-          alfrescoExecutionTypeButton.setSelection(visible);
-        }
-      } else {
-        alfrescoTaskTypeButton.setSelection(visible);
-        alfrescoExecutionTypeButton.setSelection(visible);
-      }
-    }
-    scriptText.setVisible(visible);
-    scriptLabel.setVisible(visible);
-    runAsText.setVisible(visible);
-    runAsLabel.setVisible(visible);
-    scriptProcessorText.setVisible(visible);
-    scriptProcessorLabel.setVisible(visible);
-    extensionLabel.setVisible(!visible);
-    fieldEditor.setVisible(!visible);
   }
   
   private CLabel createLabel(Composite parent, String text, Control control) {

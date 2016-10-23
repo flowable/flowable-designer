@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Activiti Designer - Libs
-Bundle-SymbolicName: org.activiti.designer.libs;singleton:=true
+Bundle-Name: Flowable Designer - Libs
+Bundle-SymbolicName: org.flowable.designer.libs;singleton:=true
 Bundle-Version: 5.18.1.qualifier
 Export-Package: com.fasterxml.jackson.databind,
  com.fasterxml.jackson.databind.node,
@@ -40,78 +40,6 @@ Export-Package: com.fasterxml.jackson.databind,
  org.activiti.bpmn.model.alfresco;uses:="org.activiti.bpmn.model",
  org.activiti.image,
  org.activiti.image.impl,
- org.activiti.workflow.simple.alfresco.conversion;
-  uses:="org.activiti.workflow.simple.definition,
-   org.activiti.workflow.simple.alfresco.model.config,
-   org.activiti.workflow.simple.converter,
-   org.activiti.workflow.simple.alfresco.export,
-   org.activiti.bpmn.model,
-   org.activiti.workflow.simple.alfresco.conversion.form,
-   org.activiti.workflow.simple.alfresco.model,
-   org.activiti.workflow.simple.converter.listener,
-   org.activiti.workflow.simple.alfresco.form,
-   org.activiti.workflow.simple.definition.form,
-   org.activiti.workflow.simple.alfresco.step,
-   org.activiti.workflow.simple.alfresco.conversion.script,
-   org.activiti.workflow.simple.converter.step",
- org.activiti.workflow.simple.alfresco.conversion.exception;uses:="org.activiti.workflow.simple.exception",
- org.activiti.workflow.simple.alfresco.conversion.form;
-  uses:="org.activiti.workflow.simple.definition.form,
-   org.activiti.workflow.simple.alfresco.model.config,
-   org.activiti.workflow.simple.converter,
-   org.activiti.bpmn.model,
-   org.activiti.workflow.simple.alfresco.model",
- org.activiti.workflow.simple.alfresco.conversion.json;uses:="org.activiti.workflow.simple.converter.json",
- org.activiti.workflow.simple.alfresco.conversion.script;uses:="org.activiti.bpmn.model,org.activiti.workflow.simple.alfresco.model",
- org.activiti.workflow.simple.alfresco.export;
-  uses:="org.activiti.workflow.simple.converter,
-   javax.xml.bind,
-   org.activiti.bpmn.converter,
-   org.activiti.workflow.simple.alfresco.model.beans",
- org.activiti.workflow.simple.alfresco.model,
- org.activiti.workflow.simple.alfresco.model.beans,
- org.activiti.workflow.simple.alfresco.model.config,
- org.activiti.workflow.simple.alfresco.step;uses:="org.activiti.workflow.simple.definition,org.activiti.workflow.simple.definition.form",
- org.activiti.workflow.simple.converter;uses:="org.activiti.workflow.simple.definition,org.activiti.bpmn.model,org.activiti.workflow.simple.converter.step",
- org.activiti.workflow.simple.converter.json;
-  uses:="org.activiti.workflow.simple.definition,
-   com.fasterxml.jackson.databind,
-   org.activiti.workflow.simple.definition.form,
-   org.activiti.workflow.simple.exception",
- org.activiti.workflow.simple.converter.listener;uses:="org.activiti.workflow.simple.definition,org.activiti.workflow.simple.converter,org.activiti.bpmn.model",
- org.activiti.workflow.simple.converter.step;
-  uses:="org.activiti.workflow.simple.definition,
-   org.activiti.workflow.simple.definition.form,
-   org.activiti.workflow.simple.converter,
-   org.activiti.bpmn.model",
- org.activiti.workflow.simple.definition;uses:="org.activiti.workflow.simple.definition.form",
- org.activiti.workflow.simple.definition.form,
- org.activiti.workflow.simple.util;uses:="org.activiti.workflow.simple.converter,org.activiti.bpmn.model",
- org.apache.chemistry.opencmis.client.api;
-  uses:="org.apache.chemistry.opencmis.commons.enums,
-   org.apache.chemistry.opencmis.commons.data,
-   org.apache.chemistry.opencmis.commons.definitions,
-   org.apache.chemistry.opencmis.commons.spi",
- org.apache.chemistry.opencmis.client.runtime;
-  uses:="org.apache.chemistry.opencmis.client.api,
-   org.apache.chemistry.opencmis.commons.enums,
-   org.apache.chemistry.opencmis.commons.spi,
-   org.apache.chemistry.opencmis.client.runtime.cache,
-   org.apache.chemistry.opencmis.commons.data,
-   org.apache.chemistry.opencmis.commons.impl.dataobjects,
-   org.apache.chemistry.opencmis.client.runtime.util,
-   new org.apache.chemistry.opencmis.client.runtime,
-   org.apache.chemistry.opencmis.commons.definitions",
- org.apache.chemistry.opencmis.commons,
- org.apache.chemistry.opencmis.commons.data;uses:="org.apache.chemistry.opencmis.commons.enums",
- org.apache.chemistry.opencmis.commons.definitions;uses:="org.apache.chemistry.opencmis.commons.data,org.apache.chemistry.opencmis.commons.enums",
- org.apache.chemistry.opencmis.commons.enums,
- org.apache.chemistry.opencmis.commons.exceptions,
- org.apache.chemistry.opencmis.commons.impl.dataobjects;
-  uses:="org.apache.chemistry.opencmis.commons.enums,
-   org.apache.chemistry.opencmis.commons.data,
-   org.apache.chemistry.opencmis.commons.definitions,
-   org.apache.chemistry.opencmis.commons.spi",
  org.apache.commons.logging,
  org.apache.http;uses:="org.apache.http.protocol,org.apache.http.params,org.apache.http.util",
  org.apache.http.auth;
@@ -191,11 +119,6 @@ Require-Bundle: org.apache.commons.lang
 Bundle-Vendor: Activiti
 Bundle-ClassPath: .,
  activation-1.1.jar,
- chemistry-opencmis-client-api-0.10.0.jar,
- chemistry-opencmis-client-bindings-0.10.0.jar,
- chemistry-opencmis-client-impl-0.10.0.jar,
- chemistry-opencmis-commons-api-0.10.0.jar,
- chemistry-opencmis-commons-impl-0.10.0.jar,
  commons-lang3-3.1.jar,
  jaxb-api-2.1.jar,
  jaxb-impl-2.1.11.jar,
@@ -223,6 +146,4 @@ Bundle-ClassPath: .,
  flowable-bpmn-converter-5.22.0.jar,
  flowable-bpmn-layout-5.22.0.jar,
  flowable-bpmn-model-5.22.0.jar,
- flowable-image-generator-5.22.0.jar,
- flowable-simple-workflow-5.22.0.jar,
- flowable-simple-workflow-alfresco-5.23.0-SNAPSHOT.jar
+ flowable-image-generator-5.22.0.jar

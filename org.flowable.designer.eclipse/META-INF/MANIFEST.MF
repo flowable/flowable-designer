@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Activiti Designer - Eclipse
-Bundle-SymbolicName: org.activiti.designer.eclipse;singleton:=true
+Bundle-Name: Flowable Designer - Eclipse
+Bundle-SymbolicName: org.flowable.designer.eclipse;singleton:=true
 Bundle-Version: 5.18.1.qualifier
 Require-Bundle: org.eclipse.graphiti,
  org.eclipse.graphiti.pattern,
@@ -17,10 +17,10 @@ Require-Bundle: org.eclipse.graphiti,
  org.eclipse.wst.sse.ui,
  org.eclipse.jface.text,
  org.eclipse.wst.sse.core,
- org.activiti.designer.util,
- org.activiti.designer.integration,
+ org.flowable.designer.util,
+ org.flowable.designer.integration,
  org.eclipse.jdt.launching,
- org.activiti.designer.libs,
+ org.flowable.designer.libs,
  org.eclipse.team.core,
  org.eclipse.core.expressions,
  org.apache.commons.io,

@@ -13,7 +13,6 @@
  */
 package org.activiti.designer.property.ui;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.activiti.bpmn.model.FormProperty;
@@ -67,7 +66,7 @@ public class FormPropertyEditor extends TableFieldEditor {
   
   protected void addTableItem(FormProperty formProperty) {
     
-    if(table != null) {
+    if (table != null) {
       TableItem tableItem = new TableItem(table, SWT.NONE);
       tableItem.setText(0, formProperty.getId());
       tableItem.setText(1, formProperty.getName() != null ? formProperty.getName() : "");
@@ -89,6 +88,7 @@ public class FormPropertyEditor extends TableFieldEditor {
       	formValuesString.append(formValue.getId()).append(":").append(formValue.getName());
       }
       tableItem.setText(10, formValuesString.toString());
+      tableItem.setData("formValues", formProperty.getFormValues());
     }
   }
 
@@ -101,7 +101,7 @@ public class FormPropertyEditor extends TableFieldEditor {
       return new String[] { dialog.id, dialog.name, dialog.type, 
       				dialog.expression, dialog.variable, dialog.defaultExpression, dialog.datePattern,
               dialog.required.toLowerCase(), dialog.readable.toLowerCase(), 
-              dialog.writeable.toLowerCase(), dialog.formValues};
+              dialog.writeable.toLowerCase(), dialog.formValues.toString()};
     } else {
       return null;
     }
@@ -112,14 +112,15 @@ public class FormPropertyEditor extends TableFieldEditor {
     int index = table.getSelectionIndex();
     FormPropertyDialog dialog = new FormPropertyDialog(parent.getShell(), getItems(), 
     				item.getText(0), item.getText(1), item.getText(2), item.getText(3), item.getText(4),
-            item.getText(5), item.getText(6), item.getText(7), item.getText(8), item.getText(9), item.getText(10));
+            item.getText(5), item.getText(6), item.getText(7), item.getText(8), item.getText(9), 
+            (List<FormValue>) item.getData("formValues"));
     dialog.open();
     if(dialog.id != null && dialog.id.length() > 0) {
       saveFormProperty(dialog, index);
       return new String[] {dialog.id, dialog.name, dialog.type, 
       				dialog.expression, dialog.variable, dialog.defaultExpression, dialog.datePattern,
               dialog.required.toLowerCase(), dialog.readable.toLowerCase(), 
-              dialog.writeable.toLowerCase(), dialog.formValues};
+              dialog.writeable.toLowerCase(), dialog.formValues.toString()};
     } else {
       return null;
     }
@@ -216,18 +217,6 @@ public class FormPropertyEditor extends TableFieldEditor {
       property.setWriteable(Boolean.valueOf(dialog.writeable.toLowerCase()));
     }
     
-    List<FormValue> formValueList = new ArrayList<FormValue>();
-    if (dialog.formValues != null && dialog.formValues.length() > 0) {
-      String[] formValueArray = dialog.formValues.split(";");
-      if(formValueArray != null) {
-        for(String formValue : formValueArray) {
-          FormValue formValueObj = new FormValue();
-          formValueObj.setId(formValue.substring(0, formValue.lastIndexOf(":")));
-          formValueObj.setName(formValue.substring(formValue.lastIndexOf(":") + 1));
-          formValueList.add(formValueObj);
-        }
-      }
-    }
-    property.setFormValues(formValueList);
+    property.setFormValues(dialog.formValues);
   }
 }

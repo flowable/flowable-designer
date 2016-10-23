@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Activiti Designer - GUI
-Bundle-SymbolicName: org.activiti.designer.gui;singleton:=true
+Bundle-Name: Flowable Designer - GUI
+Bundle-SymbolicName: org.flowable.designer.gui;singleton:=true
 Bundle-Version: 5.18.1.qualifier
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -17,18 +17,15 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.transaction,
  org.eclipse.gef,
  org.apache.commons.lang,
- org.activiti.designer.integration,
+ org.flowable.designer.integration,
  org.eclipse.ui.ide,
- org.activiti.designer.util,
+ org.flowable.designer.util,
  org.eclipse.jdt.ui,
- org.activiti.designer.eclipse,
- org.activiti.designer.libs
+ org.flowable.designer.eclipse,
+ org.flowable.designer.libs
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: com.alfresco.designer.gui.controller,
- com.alfresco.designer.gui.features,
- com.alfresco.designer.gui.property,
- org.activiti.designer,
+Export-Package: org.activiti.designer,
  org.activiti.designer.command,
  org.activiti.designer.diagram,
  org.activiti.designer.preferences,

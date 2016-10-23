@@ -305,7 +305,7 @@ public class ActivitiDiagramEditor extends DiagramEditor {
 
   private void marshallImage(BpmnMemoryModel model, String modelFileName) {
     try {
-      /*final GraphicalViewer graphicalViewer = (GraphicalViewer) ((DiagramEditor) model.getFeatureProvider().getDiagramTypeProvider().getDiagramEditor())
+      final GraphicalViewer graphicalViewer = (GraphicalViewer) ((DiagramEditor) model.getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer())
               .getAdapter(GraphicalViewer.class);
 
       if (graphicalViewer == null || graphicalViewer.getEditPartRegistry() == null) {
@@ -373,7 +373,7 @@ public class ActivitiDiagramEditor extends DiagramEditor {
       }
       File imageFile = new File(imageFileName);
       FileOutputStream outStream = new FileOutputStream(imageFile);
-      baos.writeTo(outStream);*/
+      baos.writeTo(outStream);
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -428,8 +428,6 @@ public class ActivitiDiagramEditor extends DiagramEditor {
         InputStreamReader in = new InputStreamReader(fileStream, "UTF-8");
         XMLStreamReader xtr = xif.createXMLStreamReader(in);
         BpmnXMLConverter bpmnConverter = new BpmnXMLConverter();
-        bpmnConverter.setUserTaskFormTypes(PreferencesUtil.getStringArray(Preferences.ALFRESCO_FORMTYPES_USERTASK, ActivitiPlugin.getDefault()));
-        bpmnConverter.setStartEventFormTypes(PreferencesUtil.getStringArray(Preferences.ALFRESCO_FORMTYPES_STARTEVENT, ActivitiPlugin.getDefault()));
         BpmnModel bpmnModel = null;
         try {
           bpmnModel = bpmnConverter.convertToBpmnModel(xtr);
@@ -476,8 +474,7 @@ public class ActivitiDiagramEditor extends DiagramEditor {
           for (Pool pool : model.getBpmnModel().getPools()) {
             GraphicInfo graphicInfo = model.getBpmnModel().getGraphicInfo(pool.getId());
 
-            // if no graphic info is present we can try to calculate it from the
-            // lane DI info
+            // if no graphic info is present we can try to calculate it from the lane DI info
             if (graphicInfo == null && StringUtils.isNotEmpty(pool.getProcessRef())) {
               Process process = model.getBpmnModel().getProcess(pool.getId());
 

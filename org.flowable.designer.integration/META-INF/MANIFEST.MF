@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Activiti Designer - Integration
-Bundle-SymbolicName: org.activiti.designer.integration;singleton:=true
+Bundle-Name: Flowable Designer - Integration
+Bundle-SymbolicName: org.flowable.designer.integration;singleton:=true
 Bundle-Version: 5.18.1.qualifier
 Bundle-Activator: org.activiti.designer.integration.Activator
-Bundle-Vendor: Activiti
+Bundle-Vendor: Flowable
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

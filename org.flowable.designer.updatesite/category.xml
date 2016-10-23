@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description name="Activiti Eclipse BPMN 2.0 Designer Update Site" url="http://activiti.org/designer/update">
-      Activiti Eclipse BPMN 2.0 Designer Update Site
+   <description name="Flowable Eclipse BPMN 2.0 Designer Update Site" url="http://flowable.org/designer/update">
+      Flowable Eclipse BPMN 2.0 Designer Update Site
    </description>
-   <feature url="features/org.activiti.designer.feature_0.0.0.release.jar" id="org.activiti.designer.feature" version="0.0.0">
+   <feature url="features/org.flowable.designer.feature_0.0.0.release.jar" id="org.flowable.designer.feature" version="0.0.0">
       <category name="designer"/>
    </feature>
-   <category-def name="designer" label="Activiti BPMN Designer">
+   <category-def name="designer" label="Flowable BPMN Designer">
       <description>
-         Activiti BPMN Designer
+         Flowable BPMN Designer
       </description>
    </category-def>
 </site>

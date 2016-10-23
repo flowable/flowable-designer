@@ -59,13 +59,15 @@ public class DeletePoolFeature extends AbstractCustomFeature {
     if(context.getPictogramElements() == null) return;
     
     for (final PictogramElement pictogramElement : context.getPictogramElements()) {
-      if(getBusinessObjectForPictogramElement(pictogramElement) == null) continue;
+      if (getBusinessObjectForPictogramElement(pictogramElement) == null) continue;
       final Object boObject = getBusinessObjectForPictogramElement(pictogramElement);
-      if(boObject instanceof Pool == true) {
+      if (boObject instanceof Pool == true) {
         final Pool pool = (Pool) boObject;
         BpmnMemoryModel model = ModelHandler.getModel(EcoreUtil.getURI(getDiagram()));
         Process process = model.getBpmnModel().getProcess(pool.getId());
-        model.getBpmnModel().getProcesses().remove(process);
+        if (model.getBpmnModel().getProcesses().size() > 1) {
+          model.getBpmnModel().getProcesses().remove(process);
+        }
         model.getBpmnModel().getPools().remove(pool);
         IRemoveContext rc = new RemoveContext(pictogramElement);
         IFeatureProvider featureProvider = getFeatureProvider();
