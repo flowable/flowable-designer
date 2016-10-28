@@ -41,7 +41,7 @@
 				</property>
 			</activation>
 			<properties>
-				<eclipse-site>http://download.eclipse.org/releases/nenon</eclipse-site>
+				<eclipse-site>http://download.eclipse.org/releases/neon</eclipse-site>
 				<platform-version>[4.6)</platform-version>
 				<platform-version-name>neon</platform-version-name>
 				<graphiti-site>http://download.eclipse.org/graphiti/updates/0.13.1</graphiti-site>
