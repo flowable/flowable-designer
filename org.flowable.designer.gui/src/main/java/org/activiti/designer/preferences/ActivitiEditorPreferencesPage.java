@@ -38,7 +38,7 @@ public class ActivitiEditorPreferencesPage extends FieldEditorPreferencePage imp
 	public void init(IWorkbench workbench) {
 		IPreferenceStore prefStore = ActivitiPlugin.getDefault().getPreferenceStore();
 		setPreferenceStore(prefStore);
-		setDescription("Set preferences used while editing Activiti Diagrams");
-		setTitle("Activiti Designer Editor Preferences");
+		setDescription("Set preferences used while editing Flowable Diagrams");
+		setTitle("Flowable Designer Editor Preferences");
 	}
 }

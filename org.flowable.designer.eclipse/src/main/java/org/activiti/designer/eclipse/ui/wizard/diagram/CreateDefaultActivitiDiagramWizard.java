@@ -112,16 +112,6 @@ public class CreateDefaultActivitiDiagramWizard extends BasicNewResourceWizard {
 
     final IFile dataFile = getDiagramFile();
 
-    String tempFileName = null;
-		if(initialContentPage.contentSourceTemplate.getSelection() == true &&
-        initialContentPage.templateTable.getSelectionIndex() >= 0) {
-
-			tempFileName = this.getClass().getClassLoader().getResource("src/main/resources/templates/" +
-          TemplateInfo.templateFilenames[initialContentPage.templateTable.getSelectionIndex()]).getPath();
-		}
-
-		final String contentFileName = tempFileName;
-
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			@Override
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
@@ -135,7 +125,7 @@ public class CreateDefaultActivitiDiagramWizard extends BasicNewResourceWizard {
 			    final IFile diagramFile = FileService.getTemporaryDiagramFile(path, tempFolder);
 			    
 				  Bpmn2DiagramCreator creator = new Bpmn2DiagramCreator();
-				  creator.createBpmnDiagram(dataFile, diagramFile, null, contentFileName, true);
+				  creator.createBpmnDiagram(dataFile, diagramFile, null, true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {

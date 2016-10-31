@@ -27,11 +27,11 @@ package org.activiti.designer.eclipse.common;
  */
 public enum PluginImage {
 
-  ACTIVITI_LOGO_16x16("icons/logo/activiti.logo.gradients.16x16.png"), //$NON-NLS-1$ 
-  ACTIVITI_LOGO_32x32("icons/logo/activiti.logo.gradients.32x32.png"), //$NON-NLS-1$ 
-  ACTIVITI_LOGO_48x48("icons/logo/activiti.logo.gradients.48x48.png"), //$NON-NLS-1$ 
-  ACTIVITI_LOGO_64x64("icons/logo/activiti.logo.gradients.64x64.png"), //$NON-NLS-1$  
-  ACTIVITI_LOGO_128x128("icons/logo/activiti.logo.gradients.128x128.png"); //$NON-NLS-1$
+  FLOWABLE_LOGO_16x16("icons/logo/flowable.logo.16x16.png"), //$NON-NLS-1$ 
+  FLOWABLE_LOGO_32x32("icons/logo/flowable.logo.32x32.png"), //$NON-NLS-1$ 
+  FLOWABLE_LOGO_48x48("icons/logo/flowable.logo.48x48.png"), //$NON-NLS-1$ 
+  FLOWABLE_LOGO_64x64("icons/logo/flowable.logo.64x64.png"), //$NON-NLS-1$  
+  FLOWABLE_LOGO_128x128("icons/logo/flowable.logo.128x128.png"); //$NON-NLS-1$
 
   private final String imagePath;
 

@@ -10,9 +10,9 @@
       <perspective
             class="org.activiti.designer.eclipse.perspective.ActivitiPerspective"
             fixed="false"
-            icon="icons/logo/activiti.logo.gradients.16x16.png"
-            id="org.activiti.designer.eclipse.perspective.FlowablePerspective"
-            name="Flowble">
+            icon="icons/logo/flowable.logo.16x16.png"
+            id="org.activiti.designer.eclipse.perspective.ActivitiPerspective"
+            name="Flowable">
       </perspective>
    </extension>
    <extension
@@ -25,7 +25,7 @@
             category="org.activiti.designer.eclipse.category"
             class="org.activiti.designer.eclipse.ui.wizard.project.CreateDefaultActivitiProjectWizard"
             finalPerspective="org.activiti.designer.eclipse.perspective.FlowablePerspective"
-            icon="icons/logo/activiti.logo.gradients.16x16.png"
+            icon="icons/logo/flowable.logo.16x16.png"
             id="org.activiti.designer.eclipse.ui.wizard.project.CreateDefaultActivitiProjectWizard"
             name="Flowable Project"
             project="true">
@@ -38,7 +38,7 @@
             category="org.activiti.designer.eclipse.category"
             class="org.activiti.designer.eclipse.ui.wizard.diagram.CreateDefaultActivitiDiagramWizard"
             finalPerspective="org.activiti.designer.eclipse.perspective.FlowablePerspective"
-            icon="icons/logo/activiti.logo.gradients.16x16.png"
+            icon="icons/logo/flowable.logo.16x16.png"
             id="org.activiti.designer.eclipse.ui.wizard.diagram.CreateDefaultActivitiDiagramWizard"
             name="Flowable Diagram">
              <description>
@@ -128,9 +128,6 @@
       <initializer
             class="org.activiti.designer.eclipse.preferences.ActivitiSavePreferencesPageInitializer">
       </initializer>
-      <initializer
-            class="org.activiti.designer.eclipse.preferences.ActivitiCloudEditorPreferencesPageInitializer">
-      </initializer>
    </extension>
    
    <!-- Navigator extensions -->
@@ -143,7 +140,7 @@
     <view
       category="org.activiti.designer.eclipse.view"
       class="org.eclipse.ui.navigator.CommonNavigator"
-      icon="icons/logo/activiti.logo.gradients.16x16.png"
+      icon="icons/logo/flowable.logo.16x16.png"
       id="org.activiti.designer.eclipse.view.navigator"
       name="Flowable Explorer">
     </view>
@@ -152,14 +149,6 @@
       id="org.activiti.designer.eclipse.view"
       name="Flowable">
     </category>
-    <view
-          category="org.activiti.designer.eclipse.view"
-          class="org.activiti.designer.eclipse.navigator.cloudrepo.ActivitiCloudEditorNavigator"
-          icon="icons/logo/activiti.logo.gradients.16x16.png"
-          id="org.activiti.designer.eclipse.activiticloudeditor.view"
-          name="Activiti Cloud Editor"
-          restorable="true">
-    </view>
     
   </extension>
   
@@ -234,22 +223,6 @@
         </contentExtension>
       </includes>
     </viewerContentBinding>
-    <viewer
-          viewerId="org.activiti.designer.eclipse.activiticloudeditor.view">
-       <popupMenu
-             allowsPlatformContributions="true"
-             id="org.activiti.designer.navigator.processmodel.view.popup">
-       </popupMenu>
-    </viewer>
-    <viewerContentBinding
-          viewerId="org.activiti.designer.eclipse.activiticloudeditor.view">
-       <includes>
-          <contentExtension
-                isRoot="true"
-                pattern="org.activiti.designer.eclipse.activiticloudeditor.navigatorContent">
-          </contentExtension>
-       </includes>
-    </viewerContentBinding>
   
   </extension>
   
@@ -259,7 +232,7 @@
   
     <navigatorContent
       id="org.activiti.designer.eclipse.navigator.content.diagram"
-      name="Activiti Diagram Contents"
+      name="Flowable Diagram Contents"
       contentProvider="org.activiti.designer.eclipse.navigator.diagram.DiagramTreeContentProvider"
       labelProvider="org.activiti.designer.eclipse.navigator.TreeNodeLabelProvider"
       activeByDefault="true"
@@ -345,36 +318,7 @@
          	</adapt>
          </filterExpression>
       </commonFilter>
-      <navigatorContent
-            contentProvider="org.activiti.designer.eclipse.navigator.cloudrepo.ProcessModelContentProvider"
-            id="org.activiti.designer.eclipse.activiticloudeditor.navigatorContent"
-            labelProvider="org.activiti.designer.eclipse.navigator.cloudrepo.ProcessModelLabelProvider"
-            name="Activiti Cloud Editor content">
-         <triggerPoints>
-            <or>
-               <instanceof
-                     value="org.activiti.designer.eclipse.navigator.cloudrepo.ActivitiCloudEditorRoot">
-               </instanceof>
-            </or>
-         </triggerPoints>
-      </navigatorContent>
    </extension>
-  <extension
-        point="org.eclipse.ui.preferencePages">
-     <page
-           class="org.activiti.designer.eclipse.preferences.ActivitiCloudEditorPreferencePage"
-           id="org.activiti.designer.eclipse..preferencepage.activiticloudeditor"
-           name="Activiti cloud editor">
-     </page>
-  </extension>
-  <extension
-        point="org.eclipse.ui.commands">
-     <command
-           description="Activiti Cloud Editor refresh"
-           id="org.activiti.designer.command.refreshActivitiCloudEditorNavigator"
-           name="Activiti Cloud Editor refresh">
-     </command>
-  </extension>
   <extension
         point="org.eclipse.core.expressions.definitions">
      <definition
@@ -389,66 +333,6 @@
            </iterate>
         </with>
      </definition>
-  </extension>
-  <extension
-        point="org.eclipse.ui.handlers">
-     <handler
-           class="org.activiti.designer.eclipse.navigator.cloudrepo.dialog.DownloadHandler"
-           commandId="org.activiti.designer.eclipse.navigator.processmodel.download">
-        <activeWhen>
-           <reference
-                 definitionId="org.activiti.designer.eclipse.navigator.isModelNode">
-           </reference>
-        </activeWhen>
-        <enabledWhen>
-           <reference
-                 definitionId="org.activiti.designer.eclipse.navigator.isModelNode">
-           </reference>
-        </enabledWhen>
-     </handler>
-  </extension>
-  <extension
-        point="org.eclipse.ui.menus">
-     <menuContribution
-           allPopups="false"
-           locationURI="popup:org.activiti.designer.navigator.processmodel.view.popup">
-        <command
-              commandId="org.activiti.designer.eclipse.navigator.processmodel.download"
-              id="org.activiti.designer.eclipse.navigator.processmodel.download"
-              label="Download"
-              style="push">
-        </command>
-     </menuContribution>
-  </extension>
-  <extension
-        point="org.eclipse.ui.popupMenus">
-     <objectContribution
-           adaptable="false"
-           id="org.activiti.designer.eclipse.cloudrepo.synchronize.processmodel"
-           nameFilter="*.bpmn"
-           objectClass="org.eclipse.core.resources.IFile">
-        <menu
-              icon="icons/logo/activiti.logo.gradients.16x16.png"
-              id="org.activiti.designer.eclipse.cloudrepo.menu"
-              label="Flowable Editor"
-              path="additions">
-           <separator
-                 name="group1">
-           </separator>
-        </menu>
-        <action
-              class="org.activiti.designer.eclipse.navigator.cloudrepo.sync.UploadNewVersionToRepositoryDelegate"
-              id="org.activiti.designer.eclipse.cloudrepo.uploadnewversion"
-              label="Upload new version"
-              menubarPath="org.activiti.designer.eclipse.cloudrepo.menu/group1">
-        </action>
-        <action
-              class="org.activiti.designer.eclipse.navigator.cloudrepo.sync.DownloadLatestVersionFromRepositoryDelegate"
-              id="org.activiti.designer.eclipse.cloudrepo.downloadlatestversion"
-              label="Download latest version"
-              menubarPath="org.activiti.designer.eclipse.cloudrepo.menu/group1">
-        </action>
-     </objectContribution>
   </extension>
   
 </plugin>

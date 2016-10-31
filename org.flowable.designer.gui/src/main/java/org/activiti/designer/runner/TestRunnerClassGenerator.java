@@ -63,7 +63,7 @@ public class TestRunnerClassGenerator {
     IJavaProject javaProject = (IJavaProject) project.getNature(JavaCore.NATURE_ID);
     IPackageFragmentRoot srcRoot = javaProject.getPackageFragmentRoot(sourceFolder);
 
-    IPackageFragment pack = srcRoot.createPackageFragment("org.activiti.designer.test", false, null);
+    IPackageFragment pack = srcRoot.createPackageFragment("org.flowable.designer.test", false, null);
 
     parseBpmnXML(bpmnResource.getRawLocation().toOSString());
 

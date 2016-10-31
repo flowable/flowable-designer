@@ -59,21 +59,19 @@ public class ActivitiPerspective implements IPerspectiveFactory {
     String editorArea = layout.getEditorArea();
 
     // Top left.
-    IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.LEFT, (float) 0.26, editorArea);//$NON-NLS-1$
+    IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.LEFT, (float) 0.26, editorArea); //$NON-NLS-1$
     topLeft.addView(ActivitiNavigator.VIEW_ID);
     topLeft.addView("org.eclipse.jdt.ui.PackageExplorer");
     topLeft.addView(IPageLayout.ID_PROJECT_EXPLORER);
     topLeft.addPlaceholder(IPageLayout.ID_BOOKMARKS);
 
     // Bottom left.
-    IFolderLayout bottomLeft = layout.createFolder("bottomLeft", IPageLayout.BOTTOM, (float) 0.50,//$NON-NLS-1$
-            "topLeft");//$NON-NLS-1$
+    IFolderLayout bottomLeft = layout.createFolder("bottomLeft", IPageLayout.BOTTOM, (float) 0.50, "topLeft"); //$NON-NLS-1$
     bottomLeft.addView(IPageLayout.ID_OUTLINE);
     bottomLeft.addView("org.eclipse.graphiti.ui.internal.editor.thumbnailview");
 
     // Bottom right.
-    IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, (float) 0.66,//$NON-NLS-1$
-            editorArea);
+    IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, (float) 0.66, editorArea); //$NON-NLS-1$
     bottomRight.addView(IPageLayout.ID_PROP_SHEET);
     bottomRight.addView(IPageLayout.ID_PROBLEM_VIEW);
     bottomRight.addView("org.eclipse.ant.ui.views.AntView");

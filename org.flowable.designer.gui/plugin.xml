@@ -4,9 +4,9 @@
    <extension
          point="org.eclipse.graphiti.ui.diagramTypes">
       <diagramType
-            description="The BPMN diagram for the Activiti process engine"
+            description="The BPMN diagram for the Flowable process engine"
             id="org.activiti.designer.DiagramTypeBPMN"
-            name="Activiti BPMN diagram type"
+            name="Flowable BPMN diagram type"
             type="BPMNdiagram">
       </diagramType>
    </extension>
@@ -15,7 +15,7 @@
       <diagramTypeProvider
             class="org.activiti.designer.diagram.ActivitiBPMNDiagramTypeProvider"
             id="org.activiti.designer.diagram.ActivitiBPMNDiagramTypeProvider"
-            name="Activiti BPMN editor">
+            name="Flowable BPMN editor">
          <diagramType
                id="org.activiti.designer.DiagramTypeBPMN">
          </diagramType>
@@ -378,7 +378,7 @@
       <page
             class="org.activiti.designer.preferences.ActivitiPreferencePage"
             id="org.activiti.designer.preferences"
-            name="Activiti">
+            name="Flowable">
       </page>
       <page
             category="org.activiti.designer.preferences"
@@ -396,13 +396,7 @@
             category="org.activiti.designer.preferences"
             class="org.activiti.designer.preferences.ActivitiLanguagePreferencesPage"
             id="org.activiti.designer.gui.languagepage"
-            name="Activiti languages">
-      </page>
-      <page
-            category="org.activiti.designer.preferences"
-            class="org.activiti.designer.preferences.AlfrescoPreferencesPage"
-            id="org.activiti.designer.gui.preferences.alfresco"
-            name="Alfresco settings">
+            name="Flowable languages">
       </page>
    </extension>
    <extension
@@ -414,7 +408,7 @@
             objectClass="org.eclipse.core.resources.IFile">
          <menu
                id="org.activiti.designer.gui.menu1"
-               label="Activiti"
+               label="Flowable"
                path="additions">
             <separator
                   name="group1">
@@ -422,7 +416,7 @@
          </menu>
          <action
                class="org.activiti.designer.actions.GenerateUnitTestAction"
-               icon="icons/activiti.logo.gradients.16x16.png"
+               icon="icons/flowable.logo.16x16.png"
                id="org.activiti.designer.gui.generateUnitTestAction"
                label="Generate unit test"
                menubarPath="org.activiti.designer.gui.menu1/group1">
@@ -434,7 +428,7 @@
          objectClass="org.eclipse.jdt.core.IJavaProject">
       <action
             class="org.activiti.designer.popupmenus.DeploymentMenu"
-            icon="icons/activiti.logo.gradients.16x16.png"
+            icon="icons/flowable.logo.16x16.png"
             id="org.activiti.designer.gui.deploymentAction"
             label="Create deployment artifacts"
             menubarPath="Properties">
@@ -443,7 +437,7 @@
    </extension>
    <extension
          id="org.activiti.designer.iconProvider"
-         name="Activiti Designer GUI Icon Provider"
+         name="Flowable Designer GUI Icon Provider"
          point="org.activiti.designer.eclipse.extension.IconProvider">
       <ImageProvider
             class="org.activiti.designer.diagram.DefaultIconProvider">

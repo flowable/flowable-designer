@@ -48,7 +48,7 @@ Export-Package:
  org.activiti.designer.eclipse.util,
  org.activiti.designer.eclipse.views.navigator
 Bundle-Activator: org.activiti.designer.eclipse.common.ActivitiPlugin
-Bundle-Vendor: Activiti
+Bundle-Vendor: Flowable
 Bundle-ClassPath: .,
  jdi.jar,
  jdimodel.jar

@@ -142,8 +142,8 @@ public class ActivitiLanguagePreferencesPage extends FieldEditorPreferencePage i
   public void init(IWorkbench workbench) {
     IPreferenceStore prefStore = ActivitiPlugin.getDefault().getPreferenceStore();
     setPreferenceStore(prefStore);
-    setDescription("Activiti language settings");
-    setTitle("Activiti language settings");
+    setDescription("Flowable language settings");
+    setTitle("Flowable language settings");
   }
   
   protected String removeInvalidCharacters(String value) {

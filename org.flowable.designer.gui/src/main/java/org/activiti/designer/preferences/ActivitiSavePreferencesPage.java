@@ -154,8 +154,8 @@ public class ActivitiSavePreferencesPage extends FieldEditorPreferencePage imple
   public void init(IWorkbench workbench) {
     IPreferenceStore prefStore = ActivitiPlugin.getDefault().getPreferenceStore();
     setPreferenceStore(prefStore);
-    setDescription("Set preferences used while saving Activiti Diagrams");
-    setTitle("Activiti Designer Save Preferences");
+    setDescription("Set preferences used while saving Flowable Diagrams");
+    setTitle("Flowable Designer Save Preferences");
   }
 
 }

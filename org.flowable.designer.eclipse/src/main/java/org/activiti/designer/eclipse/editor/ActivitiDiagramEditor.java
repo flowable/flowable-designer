@@ -170,7 +170,7 @@ public class ActivitiDiagramEditor extends DiagramEditor {
     // Create new temporary diagram file
     Bpmn2DiagramCreator creator = new Bpmn2DiagramCreator();
 
-    return creator.createBpmnDiagram(dataFile, diagramFile, this, null, false);
+    return creator.createBpmnDiagram(dataFile, diagramFile, this, false);
   }
 
   @Override

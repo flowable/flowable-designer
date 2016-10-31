@@ -13,12 +13,6 @@
  */
 package org.activiti.designer.eclipse.editor;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import org.activiti.designer.eclipse.util.FileService;
 import org.activiti.designer.util.ActivitiConstants;
 import org.eclipse.core.resources.IContainer;
@@ -26,7 +20,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -40,52 +33,13 @@ import org.eclipse.ui.ide.IDE;
 public class Bpmn2DiagramCreator {
   
   public ActivitiDiagramEditorInput createBpmnDiagram(final IFile dataFile, final IFile diagramFile, final ActivitiDiagramEditor diagramEditor,
-          final String templateContent, final boolean openEditor) {
+          final boolean openEditor) {
     
     IFile finalDataFile = dataFile;
 
     final IPath diagramPath = diagramFile.getFullPath();
     final String diagramName = diagramPath.removeFileExtension().lastSegment();
     final URI uri = URI.createPlatformResourceURI(diagramPath.toString(), true);
-
-    if (templateContent != null) {
-      // there is a template to use
-      final InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(templateContent);
-      finalDataFile = FileService.recreateDataFile(new Path(uri.trimFragment().toPlatformString(true)));
-      final String filePath = finalDataFile.getLocationURI().getRawPath().replaceAll("%20", " ");
-
-      OutputStream os = null;
-      try {
-        os = new FileOutputStream(filePath);
-
-        byte[] buffer = new byte[1024];
-        int len = is.read(buffer);
-        while (len > 0) {
-          os.write(buffer, 0, len);
-
-          len = is.read(buffer);
-        }
-
-      } catch (FileNotFoundException exception) {
-        exception.printStackTrace();
-      } catch (IOException exception) {
-        exception.printStackTrace();
-      } finally {
-        if (os != null) {
-          try {
-            os.close();
-          } catch (IOException exception) {
-            exception.printStackTrace();
-          }
-        }
-      }
-
-      try {
-        is.close();
-      } catch (IOException exception) {
-        exception.printStackTrace();
-      }
-    }
 
     final Diagram diagram = Graphiti.getPeCreateService().createDiagram("BPMNdiagram", diagramName, true);
 

@@ -53,9 +53,9 @@ public class CreateDefaultActivitiProjectWizard extends BasicNewProjectResourceW
     // Set properties on the basicNewProjectPage
     final WizardNewProjectCreationPage basicNewProjectPage = getBasicNewProjectPage();
     if (basicNewProjectPage != null) {
-      basicNewProjectPage.setTitle("Create an Activiti Project");
-      basicNewProjectPage.setImageDescriptor(ActivitiPlugin.getImageDescriptor(PluginImage.ACTIVITI_LOGO_64x64));
-      basicNewProjectPage.setDescription("Create an Activiti Project in the workspace.");
+      basicNewProjectPage.setTitle("Create a Flowable Project");
+      basicNewProjectPage.setImageDescriptor(ActivitiPlugin.getImageDescriptor(PluginImage.FLOWABLE_LOGO_64x64));
+      basicNewProjectPage.setDescription("Create an Flowable Project in the workspace.");
     }
 
   }
@@ -139,7 +139,7 @@ public class CreateDefaultActivitiProjectWizard extends BasicNewProjectResourceW
   public void setWindowTitle(final String newTitle) {
     if (null == newTitle || "".equals(newTitle))
     {
-      super.setWindowTitle("New Activiti Project");
+      super.setWindowTitle("New Flowable Project");
     }
     else
     {
@@ -211,17 +211,17 @@ public class CreateDefaultActivitiProjectWizard extends BasicNewProjectResourceW
     buffer.append("<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n");
     buffer.append("    xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n");
     buffer.append("  <modelVersion>4.0.0</modelVersion>\n");
-    buffer.append("  <groupId>org.activiti.examples</groupId>\n");
-    buffer.append("  <artifactId>activiti-examples</artifactId>\n");
+    buffer.append("  <groupId>org.flowable.examples</groupId>\n");
+    buffer.append("  <artifactId>flowable-examples</artifactId>\n");
     buffer.append("  <version>1.0-SNAPSHOT</version>\n");
     buffer.append("  <packaging>jar</packaging>\n");
-    buffer.append("  <name>BPMN 2.0 with Activiti - Examples</name>\n");
+    buffer.append("  <name>BPMN 2.0 with Flowable</name>\n");
     buffer.append("  <properties>\n");
-    buffer.append("    <activiti-version>5.18.0</activiti-version>\n");
+    buffer.append("    <flowable-version>5.22.0</flowable-version>\n");
     buffer.append("  </properties>\n");
     buffer.append("  <dependencies>\n");
-    addDependency(buffer, "org.activiti", "activiti-engine", "${activiti-version}");
-    addDependency(buffer, "org.activiti", "activiti-spring", "${activiti-version}");
+    addDependency(buffer, "org.flowable", "flowable-engine", "${flowable-version}");
+    addDependency(buffer, "org.flowable", "flowable-spring", "${flowable-version}");
     addDependency(buffer, "org.codehaus.groovy", "groovy-all", "2.4.3");
     addDependency(buffer, "com.h2database", "h2", "1.3.168");
     addDependency(buffer, "org.slf4j", "slf4j-api", "1.7.6");

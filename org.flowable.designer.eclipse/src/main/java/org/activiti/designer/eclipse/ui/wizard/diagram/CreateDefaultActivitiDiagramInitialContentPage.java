@@ -36,14 +36,11 @@ public class CreateDefaultActivitiDiagramInitialContentPage extends WizardPage {
 
   public Button contentSourceNone;
   public Button contentSourceImport;
-  public Button contentSourceTemplate;
-  public Table templateTable;
-  public Group templateGroup;
 
   public CreateDefaultActivitiDiagramInitialContentPage() {
     super(PAGE_NAME);
-    setTitle("New Activiti Diagram");
-    setImageDescriptor(ActivitiPlugin.getImageDescriptor(PluginImage.ACTIVITI_LOGO_64x64));
+    setTitle("New Flowable Diagram");
+    setImageDescriptor(ActivitiPlugin.getImageDescriptor(PluginImage.FLOWABLE_LOGO_64x64));
     setDescription("Select the initial content for the new diagram.");
   }
 
@@ -78,50 +75,6 @@ public class CreateDefaultActivitiDiagramInitialContentPage extends WizardPage {
 
     contentSourceImport = toolkit.createButton(contentSourceGroup, "Yes, import a BPMN 2.0 file", SWT.RADIO);
     contentSourceImport.setEnabled(false);
-
-    contentSourceTemplate = toolkit.createButton(contentSourceGroup, "Yes, use a template", SWT.RADIO);
-    contentSourceTemplate.setEnabled(true);
-    
-    templateGroup = new Group(container, SWT.SHADOW_IN);
-    templateGroup.setText("Choose template");
-    data = new GridData();
-    data.grabExcessHorizontalSpace = true;
-    data.horizontalAlignment = SWT.FILL;
-    templateGroup.setLayoutData(data);
-    templateGroup.setLayout(new RowLayout(SWT.VERTICAL));
-    templateTable = toolkit.createTable(templateGroup, SWT.BORDER);
-    for (String description : TemplateInfo.templateDescriptions) {
-      TableItem tableItem = new TableItem(templateTable, SWT.NONE);
-      tableItem.setText(description);
-    }
-    templateTable.setEnabled(false);
-    templateTable.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
-    
-    contentSourceNone.addSelectionListener(new SelectionListener() {
-
-      @Override
-      public void widgetSelected(SelectionEvent event) {
-        templateTable.setEnabled(false);
-      }
-
-      @Override
-      public void widgetDefaultSelected(SelectionEvent event) {
-      }
-      
-    });
-    
-    contentSourceTemplate.addSelectionListener(new SelectionListener() {
-
-      @Override
-      public void widgetSelected(SelectionEvent event) {
-        templateTable.setEnabled(true);
-      }
-
-      @Override
-      public void widgetDefaultSelected(SelectionEvent event) {
-      }
-      
-    });
 
     setControl(container);
     setPageComplete(false);
@@ -158,7 +111,7 @@ public class CreateDefaultActivitiDiagramInitialContentPage extends WizardPage {
   }
 
   public static enum InitialContentType {
-    NONE, IMPORT, TEMPLATE;
+    NONE, IMPORT;
   }
 
 }

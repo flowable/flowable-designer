@@ -17,6 +17,7 @@ import org.activiti.bpmn.model.ImplementationType;
 import org.activiti.bpmn.model.ServiceTask;
 import org.activiti.designer.property.ui.FieldExtensionEditor;
 import org.activiti.designer.util.eclipse.ActivitiUiUtil;
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jdt.core.IJavaProject;
@@ -206,7 +207,7 @@ public class PropertyServiceTaskSection extends ActivitiPropertySection implemen
       }
       
     } else if (control == classNameText) {
-      if (ImplementationType.IMPLEMENTATION_TYPE_CLASS.equals(task.getImplementationType())) {
+      if (StringUtils.isEmpty(task.getImplementationType()) || ImplementationType.IMPLEMENTATION_TYPE_CLASS.equals(task.getImplementationType())) {
         return task.getImplementation();
       }
     } else if (control == expressionText) {
@@ -250,17 +251,26 @@ public class PropertyServiceTaskSection extends ActivitiPropertySection implemen
         setVisibleClassType(false);
         setVisibleExpressionType(false);
         setVisibleDelegateExpressionType(true);
-      } 
+      }
+      
     } else if (control == classNameText) {
+      if (StringUtils.isEmpty(task.getImplementationType())) {
+        task.setImplementationType(ImplementationType.IMPLEMENTATION_TYPE_CLASS);
+      }
       task.setImplementation(classNameText.getText());
+      
     } else if (control == expressionText) {
       task.setImplementation(expressionText.getText());
+      
     } else if (control == delegateExpressionText) {
       task.setImplementation(delegateExpressionText.getText());
+      
     } else if (control == resultVariableText) {
       task.setResultVariableName(resultVariableText.getText());
+      
     } else if (control == skipExpressionText) {
       task.setSkipExpression(skipExpressionText.getText());
+      
     } else if (control == documentationText) {
       task.setDocumentation(documentationText.getText());
     }
