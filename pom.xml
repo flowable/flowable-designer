@@ -29,6 +29,15 @@
 			<id>deploy</id>
 			<modules>
 				<module>org.flowable.designer.parent</module>
+				<module>org.flowable.designer.libs</module>
+				<module>org.flowable.designer.eclipse</module>
+				<module>org.flowable.designer.gui</module>
+				<module>org.flowable.designer.util</module>
+				<module>org.flowable.designer.help</module>
+				<module>org.flowable.designer.feature</module>
+				<module>org.flowable.designer.updatesite</module>
+				<module>org.flowable.designer.integration</module>
+				<module>org.flowable.designer.validation.bpmn20</module>
 			</modules>
 			<build>
 				<plugins>
