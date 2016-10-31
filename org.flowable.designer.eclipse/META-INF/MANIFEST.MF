@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Flowable Designer - Eclipse
 Bundle-SymbolicName: org.flowable.designer.eclipse;singleton:=true
-Bundle-Version: 5.18.1.qualifier
+Bundle-Version: 5.22.0
 Require-Bundle: org.eclipse.graphiti,
  org.eclipse.graphiti.pattern,
  org.eclipse.graphiti.ui,

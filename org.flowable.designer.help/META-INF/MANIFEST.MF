@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Flowable Designer - Help
 Bundle-SymbolicName: org.flowable.designer.help;singleton:=true
-Bundle-Version: 5.18.1.qualifier
-Bundle-Activator: org.flowable.designer.help.Activator
+Bundle-Version: 5.22.0
+Bundle-Activator: org.activiti.designer.help.Activator
 Require-Bundle: org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

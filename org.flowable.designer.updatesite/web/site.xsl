@@ -23,8 +23,8 @@
 				<div id="header">
 					<div class="contained">
 						<div class="logo">
-							<a title="Activiti Logo" href="index.html">
-								<img style="border: medium none;" alt="Activiti Logo" src="web/assets/images/activiti_logo.png" />
+							<a title="Flowable Logo" href="index.html">
+								<img style="border: medium none;" alt="Flowable Logo" src="web/assets/images/flowable_logo.png" />
 							</a>
 							<br/>
 						</div>

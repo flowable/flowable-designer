@@ -2,7 +2,7 @@
 <feature
       id="org.flowable.designer.feature"
       label="Flowable Eclipse BPMN 2.0 Designer"
-      version="5.18.1.qualifier"
+      version="5.22.0"
       provider-name="Flowable">
 
    <description url="http://www.flowable.org">

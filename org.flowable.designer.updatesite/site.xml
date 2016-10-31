@@ -3,7 +3,7 @@
    <description name="Flowable Eclipse BPMN 2.0 Designer Update Site" url="http://flowable.org/designer/update">
       Flowable Eclipse BPMN 2.0 Designer Update Site
    </description>
-   <feature url="features/org.flowable.designer.feature_5.18.1.qualifier.jar" id="org.flowable.designer.feature" version="5.18.1.qualifier">
+   <feature url="features/org.flowable.designer.feature_5.22.0.qualifier.jar" id="org.flowable.designer.feature" version="5.22.0.qualifier">
       <category name="designer"/>
    </feature>
    <category-def name="designer" label="Flowable BPMN Designer">

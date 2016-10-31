@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Flowable Designer - Libs
 Bundle-SymbolicName: org.flowable.designer.libs;singleton:=true
-Bundle-Version: 5.18.1.qualifier
+Bundle-Version: 5.22.0
 Export-Package: com.fasterxml.jackson.databind,
  com.fasterxml.jackson.databind.node,
  org.activiti.bpmn;
@@ -116,7 +116,7 @@ Export-Package: com.fasterxml.jackson.databind,
    org.joda.time.format"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.apache.commons.lang
-Bundle-Vendor: Activiti
+Bundle-Vendor: Flowable
 Bundle-ClassPath: .,
  activation-1.1.jar,
  commons-lang3-3.1.jar,

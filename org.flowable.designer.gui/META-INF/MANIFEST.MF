@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Flowable Designer - GUI
 Bundle-SymbolicName: org.flowable.designer.gui;singleton:=true
-Bundle-Version: 5.18.1.qualifier
+Bundle-Version: 5.22.0
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.graphiti,
@@ -31,7 +31,7 @@ Export-Package: org.activiti.designer,
  org.activiti.designer.preferences,
  org.activiti.designer.property,
  org.activiti.designer.property.ui
-Bundle-Vendor: Activiti
+Bundle-Vendor: Flowable
 Bundle-Activator: org.activiti.designer.Activator
 Bundle-ClassPath: .,
  jdi.jar,

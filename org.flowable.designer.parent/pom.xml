@@ -4,7 +4,7 @@
 
 	<groupId>org.flowable.designer</groupId>
 	<artifactId>org.flowable.designer.parent</artifactId>
-	<version>5.18.1-SNAPSHOT</version>
+	<version>5.22.0</version>
 	<packaging>pom</packaging>
 
 	<name>Flowable Designer - Parent project</name>
