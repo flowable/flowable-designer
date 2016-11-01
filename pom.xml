@@ -24,66 +24,6 @@
 		<module>org.flowable.designer.parent</module>
 	</modules>
 	
-	<profiles>
-		<profile>
-			<id>deploy</id>
-			<modules>
-				<module>org.flowable.designer.parent</module>
-				<module>org.flowable.designer.libs</module>
-				<module>org.flowable.designer.eclipse</module>
-				<module>org.flowable.designer.gui</module>
-				<module>org.flowable.designer.util</module>
-				<module>org.flowable.designer.help</module>
-				<module>org.flowable.designer.feature</module>
-				<module>org.flowable.designer.updatesite</module>
-				<module>org.flowable.designer.integration</module>
-				<module>org.flowable.designer.validation.bpmn20</module>
-			</modules>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<executions>
-							<execution>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<configuration>
-							<additionalparam>-Xdoclint:none</additionalparam>
-						</configuration>
-						<executions>
-							<execution>
-								<id>attach-javadocs</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-	
 	<!-- Various information, not used by the build -->
 
 	<url>http://flowable.org</url>

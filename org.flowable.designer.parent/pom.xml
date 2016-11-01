@@ -9,6 +9,12 @@
 
 	<name>Flowable Designer - Parent project</name>
 	<description>Flowable Designer - Parent project pom</description>
+	
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 
 	<properties>
 		<tycho-version>0.22.0</tycho-version>
@@ -18,6 +24,9 @@
 	<profiles>
 		<profile>
 			<id>platform-mars</id>
+			<modules>
+				<module>../org.flowable.designer.updatesite</module>
+			</modules>
 			<activation>
 				<property>
 					<name>platform-version-name</name>
@@ -33,6 +42,9 @@
 		</profile>
 		<profile>
 			<id>platform-neon</id>
+			<modules>
+				<module>../org.flowable.designer.updatesite</module>
+			</modules>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 				<property>
@@ -47,8 +59,59 @@
 				<graphiti-site>http://download.eclipse.org/graphiti/updates/0.13.1</graphiti-site>
 			</properties>
 		</profile>
+		<profile>
+			<id>deploy</id>
+			<properties>
+				<eclipse-site>http://download.eclipse.org/releases/neon</eclipse-site>
+				<platform-version>[4.6)</platform-version>
+				<platform-version-name>neon</platform-version-name>
+				<graphiti-site>http://download.eclipse.org/graphiti/updates/0.13.1</graphiti-site>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<configuration>
+							<additionalparam>-Xdoclint:none</additionalparam>
+						</configuration>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
-
+	
 	<modules>
 		<module>../org.flowable.designer.libs</module>
 		<module>../org.flowable.designer.eclipse</module>
@@ -56,7 +119,6 @@
 		<module>../org.flowable.designer.util</module>
 		<module>../org.flowable.designer.help</module>
 		<module>../org.flowable.designer.feature</module>
-		<module>../org.flowable.designer.updatesite</module>
 		<module>../org.flowable.designer.integration</module>
 		<module>../org.flowable.designer.validation.bpmn20</module>
 	</modules>
@@ -152,5 +214,46 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<url>http://flowable.org</url>
+	<licenses>
+		<license>
+			<name>Apache v2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+		</license>
+	</licenses>
+	<organization>
+		<name>Flowable</name>
+		<url>http://flowable.org</url>
+	</organization>
+	<developers>
+		<developer>
+			<name>Tijs Rademakers</name>
+			<organization>Flowable</organization>
+			<url>http://flowable.org</url>
+		</developer>
+		<developer>
+			<name>Joram Barrez</name>
+			<organization>Flowable</organization>
+			<url>http://flowable.org</url>
+		</developer>
+		<developer>
+			<name>Frederik Heremans</name>
+		</developer>
+		<developer>
+			<name>Yvo Swillens</name>
+			<organization>Flowable</organization>
+			<url>http://flowable.org</url>
+		</developer>
+	</developers>
+	<issueManagement>
+		<system>Github issues</system>
+		<url>https://github.com/flowable/flowable-designer/issues</url>
+	</issueManagement>
+	<scm>
+		<url>git@github.com:flowable/flowable-designer.git</url>
+		<connection>scm:git:git@github.com:flowable/flowable-designer.git</connection>
+		<developerConnection>scm:git:git@github.com:flowable/flowable-designer.git</developerConnection>
+	</scm>
 
 </project>
